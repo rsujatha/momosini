@@ -1,0 +1,19 @@
+{
+  "domain": "naps",
+  "framing": "Typical ranges, not targets. Wide individual variation, especially under 4 months. Use adjusted age for preterm babies until ~24 months.",
+  "bands": [
+    { "age_months_min": 0,  "age_months_max": 3,  "total_sleep_h": "14-17", "typical_naps": "4+ irregular", "daytime_sleep": "not yet consolidated", "source": "WHO 2019 / NSF", "tier": "A-total / B-naps" },
+    { "age_months_min": 4,  "age_months_max": 5,  "total_sleep_h": "12-16", "typical_naps": "3-4", "daytime_sleep_h": "3.5-5", "source": "AASM 2016 (total) / Galland 2012 (naps)", "tier": "A-total / B-naps" },
+    { "age_months_min": 6,  "age_months_max": 8,  "total_sleep_h": "12-16", "typical_naps": "3 to 2", "daytime_sleep_h": "2.5-3.5", "source": "AASM 2016 / Galland 2012", "tier": "A-total / B-naps" },
+    { "age_months_min": 9,  "age_months_max": 12, "total_sleep_h": "12-16", "typical_naps": "2", "daytime_sleep_h": "2-3", "source": "AASM 2016 / Galland 2012", "tier": "A-total / B-naps" },
+    { "age_months_min": 12, "age_months_max": 18, "total_sleep_h": "11-14", "typical_naps": "2 to 1 (transition ~14-18mo)", "daytime_sleep_h": "2-3", "source": "AASM 2016 / Galland 2012", "tier": "A-total / B-naps" },
+    { "age_months_min": 18, "age_months_max": 24, "total_sleep_h": "11-14", "typical_naps": "1", "daytime_sleep_h": "1.5-2.5", "source": "AASM 2016 / Galland 2012", "tier": "A-total / B-naps" },
+    { "age_months_min": 24, "age_months_max": 36, "total_sleep_h": "11-14", "typical_naps": "1", "daytime_sleep_h": "1.5-2.5", "source": "AASM 2016 / Galland 2012", "tier": "A-total / B-naps" },
+    { "age_months_min": 36, "age_months_max": 60, "total_sleep_h": "10-13", "typical_naps": "1 to 0 (varies widely)", "daytime_sleep_h": "0-1.5", "source": "AASM 2016 / Galland 2012", "tier": "A-total / B-naps" }
+  ],
+  "notes": [
+    "AASM gives no recommendation below 4 months (excluded due to variation); the 0-3mo total is from WHO/NSF.",
+    "Some healthy children keep napping to ~age 7; the nap-drop age is the most variable cell — present as a wide window.",
+    "Wake windows are NOT in this file: they are tier [C] convention. Derive or serve separately, clearly flagged."
+  ]
+}

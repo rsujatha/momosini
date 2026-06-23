@@ -1,0 +1,8 @@
+{
+  "tool_returns": [
+    { "tool": "get_nap_guidance", "age_months": 14,
+      "result": { "typical_naps": "2 to 1 (transition ~14-18mo)", "daytime_sleep_h": "2-3" } }
+  ],
+  "agent_output": "Around 14 months many babies move from 2 naps to 1; daytime sleep often settles to 2-3 hours. I've built the day around one longer morning focus window.",
+  "allowed_user_numbers": []
+}

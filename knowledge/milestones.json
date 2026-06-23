@@ -1,0 +1,7 @@
+{
+  "domain": "milestones",
+  "framing": "Typical ranges, not targets. TODO: curate to match naps.json. Every row needs source + tier.",
+  "bands": [
+    { "age_months_min": 9, "age_months_max": 12, "example_milestone": "TODO", "source": "TODO (e.g. CDC/AAP developmental milestones)", "tier": "TODO" }
+  ]
+}

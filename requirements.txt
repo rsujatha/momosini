@@ -1,0 +1,4 @@
+google-adk
+google-genai
+# mcp / fastmcp per current ADK docs
+pytest
