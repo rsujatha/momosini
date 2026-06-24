@@ -36,6 +36,11 @@ The interface that lets parallel work happen without constant coordination:
 - **Data schema:** `knowledge/SOURCES.md` + the JSON shape in `knowledge/naps.json`.
 - **Tool contract:** signatures in `mcp_server/tools/`. Inputs are `age_months` only —
   never personal data. Outputs are typical ranges with a `source` and `tier`.
+- **Age-keyed lookup (shared mechanism, not shared edges):** every domain is keyed by
+  `age_months` and resolved by the same age→band lookup, but band *granularity is per-domain*.
+  Naps use coarse bands; milestones use one band per source age (finer, because infant
+  development moves faster than nap structure changes). Domains share the lookup, not identical
+  band boundaries — see `docs/DECISIONS.md` ("Milestone bands finer than nap bands").
 - **Agent output contract:** the blocks JSON the tracker consumes (see
   `agent/skills/compose-baby-day/SKILL.md`).
 

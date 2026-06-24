@@ -1,7 +1,365 @@
 {
   "domain": "milestones",
-  "framing": "Typical ranges, not targets. TODO: curate to match naps.json. Every row needs source + tier.",
+  "framing": "Typical ranges, not targets. Milestones emerge across a wide window — a child reaching one later than its band is common and not, by itself, cause for concern. For babies born preterm, use adjusted age (age from due date), not birth age, until ~24 months. These describe what is typical; they are not a checklist a baby must pass.",
+  "source_note": "Single source for the whole domain: Scharf RJ, Scharf GJ, Stroustrup A. 'Developmental Milestones.' Pediatrics in Review. 2016;37(1):25-37 (American Academy of Pediatrics), Table 3. One band per age column in the source table (fine granularity, since infant development moves fast and the source reports it that finely).",
+  "tier_note": "Tier [B] for every band: a peer-reviewed AAP educational review synthesizing developmental references — strong and clinically standard, but a review/synthesis, not a formal consensus practice guideline ([A]) nor a primary systematic review. Milestone ages carry an inherent wide variation. Sujatha owns the final tier call (provenance gate).",
+  "lookup_note": "Bands are contiguous integer-month ranges so any age_months maps to exactly one band. Unlike naps.json, milestone bands are NOT aligned to nap bands — they are finer by design (see brief Appendix B-2). get_milestone_checkin(age_months) returns the band whose [min,max] contains the age.",
   "bands": [
-    { "age_months_min": 9, "age_months_max": 12, "example_milestone": "TODO", "source": "TODO (e.g. CDC/AAP developmental milestones)", "tier": "TODO" }
-  ]
+    {
+      "age_label": "1 month", "age_months_min": 0, "age_months_max": 1,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (1mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Chin up in prone position; turns head in supine position"],
+        "fine_motor": ["Hands fisted near face"],
+        "self_help": ["Sucks well"],
+        "problem_solving": ["Gazes at black-and-white objects; follows a face"],
+        "social_emotional": ["Discriminates mother's voice; cries out of distress"],
+        "receptive_language": ["Startles to voice/sound"],
+        "expressive_language": ["Throaty noises"]
+      }
+    },
+    {
+      "age_label": "2 months", "age_months_min": 2, "age_months_max": 2,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (2mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Chest up in prone position; head bobs when held in sitting position"],
+        "fine_motor": ["Hands unfisted ~50% of the time; retains rattle if placed in hand; holds hands together"],
+        "self_help": ["Opens mouth at sight of breast or bottle"],
+        "problem_solving": ["Visual threat present; follows large, high-contrast objects; recognizes mother"],
+        "social_emotional": ["Reciprocal smiling; responds to adult voice and smile"],
+        "receptive_language": ["Alerts to voice/sound"],
+        "expressive_language": ["Coos; social smile (~6 weeks); vowel-like noises"]
+      }
+    },
+    {
+      "age_label": "3 months", "age_months_min": 3, "age_months_max": 3,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (3mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Props on forearms in prone position; rolls to side"],
+        "fine_motor": ["Inspects fingers; bats at objects"],
+        "self_help": ["Brings hands to mouth"],
+        "problem_solving": ["Reaches for a face; follows objects in a circle (in supine); regards toys"],
+        "social_emotional": ["Expression of disgust (sour taste, loud sound); visually follows a person moving across the room"],
+        "receptive_language": ["Regards speaker"],
+        "expressive_language": ["Chuckles; vocalizes when talked to"]
+      }
+    },
+    {
+      "age_label": "4 months", "age_months_min": 4, "age_months_max": 4,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (4mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Sits with trunk support; no head lag when pulled to sit; props on wrists; rolls front to back"],
+        "fine_motor": ["Hands held predominantly open; clutches at clothes; reaches persistently; plays with rattle"],
+        "self_help": ["Briefly holds onto a breast or bottle"],
+        "problem_solving": ["Mouths objects; stares longer at novel than familiar faces; shakes a rattle; reaches for a ring/rattle"],
+        "social_emotional": ["Smiles spontaneously at a pleasurable sight/sound; stops crying at parent's voice; to-and-fro vocalizations"],
+        "receptive_language": ["Orients head in the direction of a voice; stops crying to a soothing voice"],
+        "expressive_language": ["Laughs out loud; vocalizes when alone"]
+      }
+    },
+    {
+      "age_label": "5 months", "age_months_min": 5, "age_months_max": 5,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (5mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Sits with pelvic support; rolls back to front; puts arms out in front when falling; sits with arms supporting trunk"],
+        "fine_motor": ["Palmar grasps a cube; transfers objects hand-mouth-hand; holds hands together; reaches/grasps a dangling ring"],
+        "self_help": ["Gums/mouths pureed food"],
+        "problem_solving": ["Turns head to look for a dropped spoon; regards a pellet or small cracker"],
+        "social_emotional": ["Recognizes caregiver visually; forms attachment relationship to caregiver"],
+        "receptive_language": ["Begins to respond to name"],
+        "expressive_language": ["Says 'Ah-goo'; razzes/squeals; expresses anger with sounds other than crying"]
+      }
+    },
+    {
+      "age_label": "6 months", "age_months_min": 6, "age_months_max": 6,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (6mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Sits momentarily propped on hands; pivots in prone position; bears weight on one hand"],
+        "fine_motor": ["Transfers hand to hand; rakes a pellet; takes a second cube and holds on to the first; reaches with one hand"],
+        "self_help": ["Feeds self crackers; places hands on bottle"],
+        "problem_solving": ["Touches own reflection and vocalizes; removes a cloth on the face; bangs and shakes toys"],
+        "social_emotional": ["Stranger anxiety (familiar vs unfamiliar people)"],
+        "receptive_language": ["Stops momentarily to 'no'; gestures for 'up'"],
+        "expressive_language": ["Reduplicative babble with consonants; listens then vocalizes; smiles/vocalizes to mirror"]
+      }
+    },
+    {
+      "age_label": "7 months", "age_months_min": 7, "age_months_max": 7,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (7mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Bounces when held; sits without support steadily; lateral protection; puts arms out to sides for balance"],
+        "fine_motor": ["Radial-palmar grasp"],
+        "self_help": ["Refuses excess food"],
+        "problem_solving": ["Explores different aspects of a toy; observes a cube in each hand; finds a partially hidden object"],
+        "social_emotional": ["Looks from object to parent and back, wanting help (eg, with a wind-up toy)"],
+        "receptive_language": ["Looks toward when named; attends to music"],
+        "expressive_language": ["Increasing variety of syllables"]
+      }
+    },
+    {
+      "age_label": "8 months", "age_months_min": 8, "age_months_max": 8,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (8mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Gets into sitting position; commando crawls; pulls to sitting/kneeling position"],
+        "fine_motor": ["Bangs spoon after demonstration; scissor grasp of a cube; takes a cube out of a cup; pulls out a large peg"],
+        "self_help": ["Holds own bottle; finger feeds (Cheerios, string beans)"],
+        "problem_solving": ["Seeks an object after it falls silently to the floor"],
+        "social_emotional": ["Lets parents know happy vs upset; engages in gaze monitoring (follows the adult's glance with own eyes)"],
+        "receptive_language": ["Responds to 'come here'; looks for family members ('where's mama?')"],
+        "expressive_language": ["Says 'Dada' nonspecifically (8-30mo); shakes head for 'no'"]
+      }
+    },
+    {
+      "age_label": "9 months", "age_months_min": 9, "age_months_max": 9,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (9mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Stands on feet and hands; begins creeping; pulls to stand; bear walks (all four limbs straight)"],
+        "fine_motor": ["Radial-digital grasp of a cube; bangs two cubes together"],
+        "self_help": ["Bites and chews a cookie"],
+        "problem_solving": ["Inspects a bell; rings a bell; pulls a string to obtain a ring"],
+        "social_emotional": ["Uses sounds to get attention; separation anxiety; follows a point ('oh look at...'); recognizes familiar people visually"],
+        "receptive_language": ["Enjoys gesture games; orients to name well; orients to a bell"],
+        "expressive_language": ["Says 'Mama' nonspecifically; nonreduplicative babble; imitates sounds"]
+      }
+    },
+    {
+      "age_label": "10 months", "age_months_min": 10, "age_months_max": 10,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (10mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Creeps well; cruises around furniture using two hands; stands with one hand held; walks with two hands held"],
+        "fine_motor": ["Clumsy release of a cube; inferior pincer grasp of a pellet; isolates index finger and pokes"],
+        "self_help": ["Drinks from a cup held for the child"],
+        "problem_solving": ["Uncovers a toy under a cloth; pokes at a pellet in a bottle; tries to put a cube in a cup"],
+        "social_emotional": ["Experiences fear; looks preferentially when name is called"],
+        "receptive_language": ["Enjoys peek-a-boo; waves bye-bye back"],
+        "expressive_language": ["Says 'Dada' specifically; waves bye-bye"]
+      }
+    },
+    {
+      "age_label": "11 months", "age_months_min": 11, "age_months_max": 11,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (11mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Pivots in sitting; cruises furniture using one hand; stands for a few seconds; walks with one hand held"],
+        "fine_motor": ["Throws objects; stirs with a spoon"],
+        "self_help": ["Cooperates with dressing"],
+        "problem_solving": ["Finds a toy under a cup; looks at pictures in a book"],
+        "social_emotional": ["Gives objects to an adult for action after demonstration (lets adult know he/she needs help)"],
+        "receptive_language": ["Stops activity when told 'no'; bounces to music"],
+        "expressive_language": ["Says first word; vocalizes to songs"]
+      }
+    },
+    {
+      "age_label": "12 months", "age_months_min": 12, "age_months_max": 12,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (12mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Stands well with arms high and legs splayed; posterior protection; independent steps"],
+        "fine_motor": ["Scribbles after demonstration; fine pincer grasp of a pellet; holds a crayon; attempts a tower of two cubes"],
+        "self_help": ["Finger feeds part of a meal; takes off a hat"],
+        "problem_solving": ["Rattles a spoon in a cup; lifts a box lid to find a toy"],
+        "social_emotional": ["Shows objects to a parent to share interest; points to get a desired object (proto-imperative pointing)"],
+        "receptive_language": ["Follows a one-step command with a gesture; recognizes the names of two objects and looks when named"],
+        "expressive_language": ["Points to get a desired object (proto-imperative pointing); uses several gestures with vocalizing (eg, waving, reaching)"]
+      }
+    },
+    {
+      "age_label": "13 months", "age_months_min": 13, "age_months_max": 13,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (13mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Walks with arms high and out (high guard)"],
+        "fine_motor": ["Attempts to release a pellet into a bottle"],
+        "self_help": ["Drinks from a cup with some spilling"],
+        "problem_solving": ["Dangles a ring by a string; reaches around a clear barrier to obtain an object; unwraps a toy in cloth"],
+        "social_emotional": ["Shows a desire to please the caregiver; solitary play; functional play"],
+        "receptive_language": ["Looks appropriately when asked 'where's the ball?'"],
+        "expressive_language": ["Uses three words; Immature jargoning: inflection without real words"]
+      }
+    },
+    {
+      "age_label": "14 months", "age_months_min": 14, "age_months_max": 14,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (14mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Stands without pulling up; falls by collapse; walks well"],
+        "fine_motor": ["Imitates a back-and-forth scribble; adds a third cube to a two-cube tower; puts a round peg in and out of a hole"],
+        "self_help": ["Removes socks/shoes; chews well; puts a spoon in mouth (turns over)"],
+        "problem_solving": ["Dumps a pellet out of a bottle after demonstration"],
+        "social_emotional": ["Points at an object to express interest (proto-declarative pointing); purposeful exploration of toys through trial and error"],
+        "receptive_language": ["Follows a one-step command without a gesture"],
+        "expressive_language": ["Names one object; points at an object to express interest (proto-declarative pointing)"]
+      }
+    },
+    {
+      "age_label": "15 months", "age_months_min": 15, "age_months_max": 15,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (15mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Stoops to pick up a toy; creeps up stairs; runs stiff-legged; walks carrying a toy; climbs on furniture"],
+        "fine_motor": ["Builds a three to four-cube tower; places 10 cubes in a cup; releases a pellet into a bottle"],
+        "self_help": ["Uses a spoon with some spilling; attempts to brush hair; fusses to be changed"],
+        "problem_solving": ["Turns pages in a book; places a circle in a single-shape puzzle"],
+        "social_emotional": ["Shows empathy (someone else cries, child looks sad); hugs an adult in reciprocation; recognizes without a demonstration that a toy requires activation and hands it to an adult if he/she can't operate it"],
+        "receptive_language": ["Points to one body part; points to one of three objects when named; gets an object from another room on demand"],
+        "expressive_language": ["Uses three to five words; mature jargoning with real words"]
+      }
+    },
+    {
+      "age_label": "16 months", "age_months_min": 16, "age_months_max": 17,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (16mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Stands on one foot with slight support; walks backwards; walks up stairs with one hand held"],
+        "fine_motor": ["Puts several round pegs in a board with urging; scribbles spontaneously"],
+        "self_help": ["Picks up and drinks from a cup; fetches and carries objects (same room)"],
+        "problem_solving": ["Dumps a pellet without demonstration; finds a toy hidden under layers of covers; places a circle in a form board"],
+        "social_emotional": ["Kisses by touching lips to skin; periodically relocates the caregiver; embarrassed when aware of people observing"],
+        "receptive_language": ["Understands simple commands ('bring to mommy'); points to one picture when named"],
+        "expressive_language": ["Uses 5 to 10 words"]
+      }
+    },
+    {
+      "age_label": "18 months", "age_months_min": 18, "age_months_max": 19,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (18mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Creeps down stairs; runs well; seats self in a small chair; throws a ball while standing"],
+        "fine_motor": ["Makes a four-cube tower; crudely imitates a vertical stroke"],
+        "self_help": ["Removes a garment; gets onto an adult chair unaided; moves about the house without an adult"],
+        "problem_solving": ["Matches pairs of objects; replaces a circle in a form board after it has been turned around (usually with trial and error)"],
+        "social_emotional": ["Passes M-CHAT; engages in pretend play; begins to show shame (when does wrong) and possessiveness"],
+        "receptive_language": ["Points to two of three objects when named; points to self; understands mine; points to three body parts; points to familiar people/pictures when named"],
+        "expressive_language": ["Uses 10 to 25 words; Uses giant words (all gone, stop that); imitates environmental sounds (animals); names one picture on demand"]
+      }
+    },
+    {
+      "age_label": "20 months", "age_months_min": 20, "age_months_max": 21,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (20mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Squats in play; carries a large object; walks down stairs with one hand held"],
+        "fine_motor": ["Completes a round-peg board without urging; makes a five-to-six-cube tower; completes a square-peg board"],
+        "self_help": ["Places only edibles in the mouth; feeds self with a spoon the entire meal"],
+        "problem_solving": ["Deduces the location of a hidden object; places a square in a form board"],
+        "social_emotional": ["Begins to have thoughts about feelings; engages in a tea party with stuffed animals; kisses with a pucker"],
+        "receptive_language": ["Points to three pictures; begins to understand me/you"],
+        "expressive_language": ["Holophrases ('Mommy?' and points, meaning 'These are Mommy's keys'); two-word combinations; answers requests with 'no'"]
+      }
+    },
+    {
+      "age_label": "22 months", "age_months_min": 22, "age_months_max": 23,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (22mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Walks up stairs holding the rail putting both feet on each step; kicks a ball with demonstration; walks with one foot on a walking board"],
+        "fine_motor": ["Closes a box with a lid; imitates a vertical line; imitates a circular scribble"],
+        "self_help": ["Uses a spoon well; drinks from a cup well; unzips zippers; puts shoes on partway"],
+        "problem_solving": ["Completes a form board"],
+        "social_emotional": ["Watches other children intensely; begins to show defiant behavior"],
+        "receptive_language": ["Points to four-to-five pictures when named; points to five-to-six body parts; points to four pieces of clothing when named"],
+        "expressive_language": ["Uses 25 to 50 words; asks for more; adds one to two words per week"]
+      }
+    },
+    {
+      "age_label": "24 months", "age_months_min": 24, "age_months_max": 27,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (24mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Walks down stairs holding the rail, both feet on each step; kicks a ball without demonstration; throws overhand"],
+        "fine_motor": ["Makes a single-line 'train' of cubes; imitates a circle; imitates a horizontal line"],
+        "self_help": ["Opens a door using the knob; sucks through a straw; takes off clothes without buttons; pulls off pants"],
+        "problem_solving": ["Sorts objects; matches objects to pictures; shows the use of familiar objects"],
+        "social_emotional": ["Parallel play; begins to mask emotions for social etiquette"],
+        "receptive_language": ["Follows a two-step command; understands me/you; points to 5 to 10 pictures"],
+        "expressive_language": ["Two-word sentences (noun + verb); telegraphic speech; uses 50+ words; 50% intelligibility; refers to self by name; names three pictures"]
+      }
+    },
+    {
+      "age_label": "28 months", "age_months_min": 28, "age_months_max": 29,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (28mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Jumps from the bottom step with one foot leading; walks on toes after demonstration; walks backward 10 steps"],
+        "fine_motor": ["Strings large beads; unscrews a jar lid; turns paper pages (often several at once)"],
+        "self_help": ["Holds self and verbalizes toilet needs; pulls pants up with assistance"],
+        "problem_solving": ["Matches shapes; matches colors"],
+        "social_emotional": ["Reduction in separation anxiety"],
+        "receptive_language": ["Understands 'just one'"],
+        "expressive_language": ["Repeats two digits; begins to use pronouns (I, me, you); names 10 to 15 pictures"]
+      }
+    },
+    {
+      "age_label": "30 months", "age_months_min": 30, "age_months_max": 32,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (30mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Walks up stairs with the rail, alternating feet; jumps in place; stands with both feet on a balance beam; walks with one foot on a balance beam"],
+        "fine_motor": ["Makes an eight-cube tower; makes a 'train' of cubes and includes a stack"],
+        "self_help": ["Washes hands; puts things away; brushes teeth with assistance"],
+        "problem_solving": ["Replaces a circle in a form board after it is turned around (little or no trial and error); points to small details in pictures"],
+        "social_emotional": ["Imitates adult activities (sweeping, talking on the phone)"],
+        "receptive_language": ["Understands two prepositions ('put the block in/on the box'); understands action words (playing, washing, blowing)"],
+        "expressive_language": ["Echolalia and jargoning gone; names objects by use; refers to self with the correct pronoun; recites parts of a well-known story / fills in words"]
+      }
+    },
+    {
+      "age_label": "33 months", "age_months_min": 33, "age_months_max": 35,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (33mo)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Walks swinging arms opposite the legs (synchronous gait)"],
+        "fine_motor": ["Makes a 9- to 10-cube tower; Puts six square pegs in a pegboard; imitates a cross"],
+        "self_help": ["Toilet trained; puts on a coat unassisted"],
+        "problem_solving": ["Points to self in photos; points to body parts based on function ('what do you hear with?')"],
+        "social_emotional": ["Begins to take turns; tries to help with household tasks"],
+        "receptive_language": ["Understands three prepositions; understands dirty/wet; points to objects by use ('ride in ..', 'put on feet..', 'write with..')"],
+        "expressive_language": ["Gives first and last name; counts to 3; begins to use past tense; enjoys being read to (short books)"]
+      }
+    },
+    {
+      "age_label": "3 years", "age_months_min": 36, "age_months_max": 47,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (3y)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Balances on one foot for 3 seconds; goes up stairs alternating feet; pedals a tricycle; walks heel-to-toe; catches a ball with stiff arms"],
+        "fine_motor": ["Copies a circle; cuts with scissors side-to-side; strings small beads well; imitates a bridge of cubes"],
+        "self_help": ["Independent eating; pours liquid from one container to another; puts on shoes without laces; unbuttons"],
+        "problem_solving": ["Draws a two- to three-part person; understands long/short, big/small, more/less; knows own gender; matches letters/numerals"],
+        "social_emotional": ["Starts to share with/without prompt; fears imaginary things; imaginative play; describes what someone else is thinking ('Mom thought I was asleep')"],
+        "receptive_language": ["Points to parts of pictures (nose of a cow, door of a car); names body parts with their function; understands negatives; groups objects (foods, toys)"],
+        "expressive_language": ["Uses 200+ words; three-word sentences; uses pronouns correctly; 75% intelligibility; uses plurals; names body parts by use; asks to be read to"]
+      }
+    },
+    {
+      "age_label": "4 years", "age_months_min": 48, "age_months_max": 59,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (4y)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Balances on one foot 4 to 8 seconds; hops on one foot two to three times; Standing broad jump: 1 to 2 feet,gallops; throws a ball overhand ~10 feet; catches a bounced ball (4.5 yrs)"],
+        "fine_motor": ["Copies a square; ties a single knot; cuts a 5-inch circle; uses tongs to transfer; writes part of first name; imitates a gate with cubes"],
+        "self_help": ["Goes to the toilet alone; wipes after a bowel movement; brushes teeth alone; uses a fork well; washes face and hands"],
+        "problem_solving": ["Draws a four- to six-part person; can give amounts (usually less than 5); simple analogies (dad/boy : mom/??) or (ice/cold :fire/??) or (ceiling/up:floor/??); points to five to six colors; points to letters/numerals when named; rote counts to 4; 'reads' several common signs/store names"],
+        "social_emotional": ["Deception (interested in tricking others and concerned about being tricked); has a preferred friend; labels happiness, sadness, fear, and anger in self; group play"],
+        "receptive_language": ["Follows three-step commands; points to things that are the same versus different; names things when actions are described (eg, swims in water, you cut with it, it's somethign you read, it tells time...); understands adjectives (bushy, long, thin, pointed)"],
+        "expressive_language": ["Uses 300 to 1,000 words; tells stories; 100% intelligibility; uses 'feeling' words; uses words that tell about time"]
+      }
+    },
+    {
+      "age_label": "5 years", "age_months_min": 60, "age_months_max": 71,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (5y)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Walks down stairs with rails wqalternating feet; balances on one foot >8 seconds; hops on one foot 15 times; skips; running broad jump 2 to 3 feet; walks backward heel-toe; jumps backward"],
+        "fine_motor": ["Copies a triangle; puts a paper clip on paper; uses clothespins to transfer small objects; cuts with scissors; writes first name; builds stairs from a model"],
+        "self_help": ["Spreads with a knife; independent dressing; bathes independently"],
+        "problem_solving": ["Draws an 8- to 10-part person; gives amounts (<10); identifies coins; rote counts to 10; names 10 colors; uses letter names as sounds to invent spelling; knows the sounds of consonants and short vowels by end of kindergarten; reads 25 words"],
+        "social_emotional": ["Has a group of friends; apologizes for mistakes; responds verbally to the good fortune of others; enjoys school"],
+        "receptive_language": ["Knows right and left on self; points to different one in a series; understands '-er' endings (batter, skater); understands adjectives (busy, long, thin, pointed); points correctly to 'side', 'middle', 'corner'; Produces words that rhyme; Enjoys rhyming words and alliterations"],
+        "expressive_language": ["Repeats a six- to eight-word sentence; defines simple words; uses 2,000 words; knows telephone number; responds to 'why' questions; retells a story with a clear beginning, middle, and end"]
+      }
+    },
+    {
+      "age_label": "6 years", "age_months_min": 72, "age_months_max": 83,
+      "source": "Scharf et al., Pediatrics in Review 2016;37(1):25-37, Table 3 (6y)", "tier": "B",
+      "milestones": {
+        "gross_motor": ["Tandem walks"],
+        "fine_motor": ["Builds stairs from memory; draws a diamond; writes first and last name; creates and writes short sentences; forms letters with downgoing and counterclockwise strokes; copies a drawing of a flag"],
+        "self_help": ["Ties shoes; combs hair; looks both ways at the street; remembers to bring belongings"],
+        "problem_solving": ["Draws a 12- to 14-part person; number concepts to 20; simple addition and subtraction; understands seasons; sounds out regularly spelled words; reads 250 words by end of first grade"],
+        "social_emotional": ["Has a best friend of the same sex; plays board games; distinguishes fantasy from reality; wants to be like friends and please them; enjoys school"],
+        "receptive_language": ["Asks what unfamiliar words mean; can tell which words do not belong in a group"],
+        "expressive_language": ["Repeats 8- to 10-word sentences; describes events in order; knows the days of the week; 10,000-word vocabulary"]
+      }
+    }
+  ],
+  "notes": [
+    "Single source for the whole domain: Scharf RJ, Scharf GJ, Stroustrup A. 'Developmental Milestones.' Pediatrics in Review. 2016;37(1):25-37, Table 3 (AAP).",
+    "Bands are finer than naps.json (one per source age column), because infant development moves fast and the source reports it that finely. Both tools still do the same age->band lookup; the domains just don't share identical band edges. See brief Appendix B-2.",
+    "Typical, not prescriptive: a milestone reached later than its band is common and normal. For preterm babies use adjusted age until ~24 months.",
+    "Red flags are NOT in this file. The same source carries a Developmental Red Flags table (Table 5); if added later it would be a separate, clearly-scoped helper feeding the 'is my baby behind?' -> point-to-pediatrician path, never a diagnosis. Proposed as future work, not built."]
 }

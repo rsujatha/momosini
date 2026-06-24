@@ -219,6 +219,80 @@ provenance discipline — not a prettier table — is the differentiator.
 
 ---
 
+## Appendix B-2 — Worked example: the milestone knowledge domain, sourced
+
+§6's curation discipline applied to the milestone domain — the reference content behind
+`milestones.json` and `get_milestone_checkin(age_months)`. It meets the same standard as the
+nap appendix: a single named source, a confidence tier, an honest tier rationale, and the
+same age index as naps so the two domains line up.
+
+**Single source (use this citation in the writeup):**
+> Scharf RJ, Scharf GJ, Stroustrup A. **Developmental Milestones.** *Pediatrics in Review.*
+> 2016;37(1):25–37. American Academy of Pediatrics. (Table 3, "Developmental Milestones,"
+> spanning 1 month to 6 years across seven domains.)
+
+The whole domain is transcribed from this one table — not stitched together from scattered
+charts. That single-provenance story is itself part of the pitch.
+
+**The seven domains** carried per age band: gross motor, fine motor, self-help,
+problem-solving, social/emotional, receptive language, expressive language. The agent's
+play-activity generation (§6.5) targets the milestones in these domains — facts retrieved,
+games generated.
+
+**Framing rule for the whole domain:** typical ranges, not targets. A milestone reached later
+than its band is common and not, by itself, cause for concern. For babies born preterm, use
+**adjusted age** (age from due date), not birth age, until ~24 months — same rule as naps.
+
+### Confidence tier — and the honest rationale
+
+Every band is tagged **[B]**, with the reasoning stated openly rather than rounded up:
+
+- It is **not [A]**. [A] is reserved for a formal consensus practice guideline (AASM/AAP sleep
+  statement, WHO). This is a peer-reviewed AAP *educational review* that synthesizes the
+  developmental literature into a teaching table — authoritative and clinically standard, but a
+  review, not a practice guideline.
+- It is **not a primary [B] systematic review** in the way Galland 2012 is for naps; it is a
+  secondary synthesis. We still tier it **[B]** (strong, peer-reviewed, AAP-published) and say
+  so plainly. Resisting the temptation to stamp it [A] *is* the facts-discipline the pitch sells.
+- **Milestone ages carry inherent wide variation** — wider than sleep totals — so the
+  typical-not-prescriptive framing matters even more here.
+
+Sujatha owns the final tier call (the provenance gate); the file marks [B] pending that review.
+
+### Age banding — finer than naps, deliberately
+
+`milestones.json` uses **one band per age column in the source table** (1, 2, 3, … 16, 18, 20,
+22, 24, 28, 30, 33 months, then 3, 4, 5, 6 years) rather than collapsing to `naps.json`'s eight
+coarse bands. Reason: infant development moves fast and the source reports it that finely — a
+9-month-old and a 12-month-old should not get the same milestones, the way they'd share a nap
+band. Bands are contiguous integer-month ranges so every `age_months` maps to exactly one band,
+and `get_milestone_checkin(age_months)` does the same age→band lookup `get_nap_guidance` does.
+
+**Trade-off, noted honestly:** this means milestone and nap bands no longer share identical
+edges, so the two domains don't literally share one index — they share the same *lookup
+mechanism* (age→band), not the same band boundaries. This is a deliberate deviation from
+ARCHITECTURE.md's "shared index across domains" line; if kept, that line should be softened to
+"shared age-keyed lookup" and the choice logged in `docs/DECISIONS.md`. (Flagged for Sujatha,
+not yet changed.)
+
+### Red flags — deliberately out of scope (for now)
+
+The same article carries a **Developmental Red Flags** table (Table 5) and a neonatal-reflex
+table. These are *not* in `milestones.json`. If added later, red flags would be a separate,
+clearly-scoped helper feeding the "is my baby behind?" → *point-to-pediatrician* path (Skill
+rule 5) — never a diagnosis the model makes. Logged as future work, consistent with §11 scope
+discipline: designing the extensible structure counts; building every table does not.
+
+### Why this matches the nap appendix's bar (for the writeup)
+
+Same four moves as the nap domain: (a) every band sourced to one real citation, (b) confidence
+tiered, (c) the tier *demoted honestly* ([B], not a dressed-up [A]), and (d) explicit about what
+it deliberately leaves out (red flags, diagnosis). The milestone domain doesn't just copy the
+nap pattern — it shows the discipline generalizes, which is the extensibility claim the pitch
+makes.
+
+---
+
 ## Appendix C — SKILL.md: `compose-baby-day`
 
 The methodology layer for the agent's one agentic flow. Save as

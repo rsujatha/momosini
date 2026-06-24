@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge Viewer — naps & milestones</title>
+<style>
+  :root{
+    --bg:#fafaf7; --card:#fff; --ink:#23241f; --muted:#6b6f63; --line:#e4e3da;
+    --accent:#5b7a5b; --accent-soft:#eef2ea; --badgeA:#3a6ea5; --badgeB:#6a8f3c; --badgeC:#b07d3a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg);color:var(--ink)}
+  header{padding:22px 26px 14px;border-bottom:1px solid var(--line);background:var(--card);position:sticky;top:0;z-index:5}
+  h1{margin:0 0 2px;font-size:19px}
+  .sub{color:var(--muted);font-size:13px}
+  .wrap{max-width:1000px;margin:0 auto;padding:24px 26px 80px}
+  /* drop zone */
+  #drop{border:2px dashed var(--line);border-radius:14px;padding:34px;text-align:center;color:var(--muted);
+    background:var(--card);cursor:pointer;transition:.15s}
+  #drop.hover{border-color:var(--accent);background:var(--accent-soft);color:var(--ink)}
+  #drop strong{color:var(--ink)}
+  .pick{display:inline-block;margin-top:10px;padding:8px 16px;border-radius:9px;background:var(--accent);color:#fff;font-weight:600}
+  input[type=file]{display:none}
+  /* controls */
+  .controls{display:none;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 18px}
+  .controls.on{display:flex}
+  .controls input[type=search]{padding:9px 12px;border:1px solid var(--line);border-radius:9px;font-size:14px;min-width:220px}
+  .pill{font-size:12px;color:var(--muted);background:var(--card);border:1px solid var(--line);padding:5px 10px;border-radius:20px}
+  .reset{margin-left:auto;font-size:13px;color:var(--accent);cursor:pointer;text-decoration:underline}
+  .framing{background:var(--accent-soft);border:1px solid #dde6d6;border-radius:11px;padding:13px 15px;margin:0 0 18px;font-size:13.5px;color:#41463a}
+  /* badges */
+  .badge{display:inline-block;font-size:11px;font-weight:700;color:#fff;border-radius:6px;padding:2px 7px;letter-spacing:.3px}
+  .A{background:var(--badgeA)} .B{background:var(--badgeB)} .C{background:var(--badgeC)}
+  /* nap table */
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);font-size:13.5px;vertical-align:top}
+  th{background:var(--accent-soft);font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:#475040}
+  tr:last-child td{border-bottom:none}
+  /* milestone cards */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin:0 0 14px;scroll-margin-top:90px}
+  .card.match{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .card h3{margin:0 0 2px;font-size:16px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .card .range{font-size:12px;color:var(--muted);font-weight:500}
+  .src{font-size:11.5px;color:var(--muted);margin:2px 0 12px}
+  .dom{display:grid;grid-template-columns:140px 1fr;gap:4px 14px;padding:7px 0;border-top:1px solid var(--line)}
+  .dom:first-of-type{border-top:none}
+  .dom .name{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#5a6150;padding-top:2px}
+  .dom ul{margin:0;padding-left:18px}
+  .dom li{margin:1px 0}
+  .hidden{display:none}
+  .err{color:#a23b3b;background:#fbeeee;border:1px solid #efd2d2;padding:12px 15px;border-radius:10px}
+  .count{font-size:13px;color:var(--muted);margin:0 0 10px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Knowledge Viewer</h1>
+  <div class="sub">Local reader for <code>naps.json</code> and <code>milestones.json</code> — nothing leaves your computer.</div>
+</header>
+<div class="wrap">
+  <div id="drop">
+    <div>Drag a JSON file here, or</div>
+    <label class="pick" for="file">Choose a file</label>
+    <input id="file" type="file" accept=".json,application/json">
+    <div style="margin-top:12px;font-size:12.5px">Open <strong>naps.json</strong> or <strong>milestones.json</strong> from your <em>knowledge</em> folder.</div>
+  </div>
+
+  <div class="controls" id="controls">
+    <span class="pill" id="filePill"></span>
+    <input type="search" id="search" placeholder="Type an age in months (e.g. 9) or any word…">
+    <span class="reset" id="reset">clear</span>
+  </div>
+  <div id="out"></div>
+</div>
+
+<script>
+const drop=document.getElementById('drop'), fileIn=document.getElementById('file'),
+      out=document.getElementById('out'), controls=document.getElementById('controls'),
+      search=document.getElementById('search'), filePill=document.getElementById('filePill'),
+      reset=document.getElementById('reset');
+let current=null; // {kind, data}
+
+drop.addEventListener('click',()=>fileIn.click());
+['dragenter','dragover'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.add('hover')}));
+['dragleave','drop'].forEach(e=>drop.addEventListener(e,ev=>{ev.preventDefault();drop.classList.remove('hover')}));
+drop.addEventListener('drop',ev=>{const f=ev.dataTransfer.files[0]; if(f) load(f)});
+fileIn.addEventListener('change',ev=>{const f=ev.target.files[0]; if(f) load(f)});
+reset.addEventListener('click',()=>{search.value='';render()});
+search.addEventListener('input',render);
+
+function load(file){
+  const r=new FileReader();
+  r.onload=()=>{
+    let d; try{ d=JSON.parse(r.result); }
+    catch(e){ out.innerHTML='<div class="err">That file isn\'t valid JSON: '+esc(e.message)+'</div>'; return; }
+    const kind = d.domain==='naps' ? 'naps' : d.domain==='milestones' ? 'milestones' : 'unknown';
+    current={kind,data:d,name:file.name};
+    filePill.textContent=file.name+' · '+(kind==='unknown'?'unrecognized':kind);
+    controls.classList.add('on'); search.value=''; render();
+  };
+  r.readAsText(file);
+}
+
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));}
+
+function framing(d){
+  let h='';
+  if(d.framing) h+='<div class="framing"><strong>Framing:</strong> '+esc(d.framing)+'</div>';
+  return h;
+}
+
+function render(){
+  if(!current){out.innerHTML='';return;}
+  const q=search.value.trim().toLowerCase();
+  const ageQ = /^\d+$/.test(q) ? parseInt(q,10) : null;
+  if(current.kind==='naps') return renderNaps(current.data,q,ageQ);
+  if(current.kind==='milestones') return renderMs(current.data,q,ageQ);
+  out.innerHTML='<div class="err">Loaded, but this doesn\'t look like a naps or milestones file (no recognized <code>domain</code> field). Showing raw:</div><pre>'+esc(JSON.stringify(current.data,null,2))+'</pre>';
+}
+
+function tierBadge(t){
+  if(!t) return '';
+  const letter=(String(t).match(/[ABC]/)||[''])[0];
+  return '<span class="badge '+letter+'">tier '+esc(t)+'</span>';
+}
+
+function renderNaps(d,q,ageQ){
+  const cols=[['age','Age band'],['total_sleep_h','Total sleep /24h'],['typical_naps','Typical naps'],
+             ['daytime','Daytime sleep'],['source','Source'],['tier','Tier']];
+  let rows=d.bands.map(b=>{
+    const age=b.age_months_min+'–'+b.age_months_max+' mo';
+    const day=b.daytime_sleep_h?b.daytime_sleep_h+' h':(b.daytime_sleep||'—');
+    return {age,b,
+      cells:{age,total_sleep_h:b.total_sleep_h||'—',typical_naps:b.typical_naps||'—',daytime:day,
+             source:b.source||'—',tier:b.tier||'—'},
+      lo:b.age_months_min,hi:b.age_months_max};
+  });
+  if(ageQ!==null) rows=rows.filter(r=>ageQ>=r.lo&&ageQ<=r.hi);
+  else if(q) rows=rows.filter(r=>JSON.stringify(r.cells).toLowerCase().includes(q));
+  let h=framing(d)+'<div class="count">'+rows.length+' band'+(rows.length!=1?'s':'')+(ageQ!==null?' containing age '+ageQ+' mo':'')+'</div>';
+  h+='<table><thead><tr>'+cols.map(c=>'<th>'+c[1]+'</th>').join('')+'</tr></thead><tbody>';
+  h+=rows.map(r=>'<tr>'+cols.map(c=>{
+        let v=r.cells[c[0]];
+        if(c[0]==='tier') v=tierBadge(r.b.tier);
+        return '<td>'+(c[0]==='tier'?v:esc(v))+'</td>';
+      }).join('')+'</tr>').join('');
+  h+='</tbody></table>';
+  if(Array.isArray(d.notes)&&d.notes.length) h+=notesBlock(d.notes);
+  out.innerHTML=h;
+}
+
+const DOM_ORDER=[['gross_motor','Gross motor'],['fine_motor','Fine motor'],['self_help','Self-help'],
+  ['problem_solving','Problem-solving'],['social_emotional','Social / emotional'],
+  ['receptive_language','Receptive language'],['expressive_language','Expressive language']];
+
+function renderMs(d,q,ageQ){
+  let bands=d.bands.slice();
+  let matchLabel=null;
+  let shown=bands;
+  if(ageQ!==null){
+    shown=bands.filter(b=>ageQ>=b.age_months_min&&ageQ<=b.age_months_max);
+    if(shown.length) matchLabel=shown[0].age_label;
+  } else if(q){
+    shown=bands.filter(b=>JSON.stringify(b).toLowerCase().includes(q));
+  }
+  let h=framing(d);
+  h+='<div class="count">'+shown.length+' band'+(shown.length!=1?'s':'')+
+     (ageQ!==null?(shown.length?' — age '+ageQ+' mo falls in “'+esc(matchLabel)+'”':' — no band for age '+ageQ):'')+'</div>';
+  h+=shown.map(b=>{
+    const range=b.age_months_min===b.age_months_max?(b.age_months_min+' mo'):(b.age_months_min+'–'+b.age_months_max+' mo');
+    let c='<div class="card'+(ageQ!==null?' match':'')+'">';
+    c+='<h3>'+esc(b.age_label||range)+' <span class="range">('+range+')</span> '+tierBadge(b.tier)+'</h3>';
+    if(b.source) c+='<div class="src">'+esc(b.source)+'</div>';
+    c+=DOM_ORDER.map(([k,name])=>{
+      const items=(b.milestones&&b.milestones[k])||[];
+      if(!items.length) return '';
+      return '<div class="dom"><div class="name">'+name+'</div><div><ul>'+
+        items.map(i=>'<li>'+esc(i)+'</li>').join('')+'</ul></div></div>';
+    }).join('');
+    c+='</div>';
+    return c;
+  }).join('');
+  if(Array.isArray(d.notes)&&d.notes.length) h+=notesBlock(d.notes);
+  out.innerHTML=h;
+}
+
+function notesBlock(notes){
+  return '<div class="framing" style="margin-top:18px"><strong>Notes:</strong><ul style="margin:6px 0 0;padding-left:18px">'+
+    notes.map(n=>'<li>'+esc(n)+'</li>').join('')+'</ul></div>';
+}
+</script>
+</body>
+</html>

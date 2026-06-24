@@ -33,6 +33,17 @@ Across every layer: the model never originates a developmental number. This is w
 contrast against health agents that *claim* grounding but let the model estimate the number.
 Status: **load-bearing; protected by `agent/instructions.py` + `eval/`.**
 
+## Milestone bands finer than nap bands
+Naps use eight coarse bands (0-3, 4-5, 6-8, 9-12, 12-18, 18-24, 24-36, 36-60 mo). Milestones
+use one band per source-table age (1, 2, 3...16, 18, 20, 22, 24, 28, 30, 33 mo, then 3/4/5/6 yr),
+because infant development moves fast and the source (Scharf et al., Pediatrics in Review
+2016;37(1):25-37) reports it that finely — a 9- and a 12-month-old should not get the same
+milestones the way they'd share a nap band. Consequence: the two domains no longer share
+identical band *edges*, only the same age->band *lookup mechanism*. ARCHITECTURE.md's contract
+section was updated to say "shared lookup, not shared edges." Bands are contiguous integer-month
+ranges so every age maps to exactly one band; the loader/tool logic is unchanged. Status:
+**milestones finer-banded; nap bands unchanged.**
+
 ## Play activities are generated, not curated
 Games are not facts — there are many valid ones, and a wrong game isn't a false claim the way
 a wrong nap number is. So play is the one place the model creates rather than retrieves. The

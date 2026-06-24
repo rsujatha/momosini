@@ -14,6 +14,9 @@ Every figure in every `*.json` here carries a `source` and a `tier`. No bare num
 - [B] Galland et al., *Normal sleep patterns in infants and children: a systematic review*,
   Sleep Med Rev 2012.
 - [B] Iglowstein et al., *Sleep Duration From Infancy to Adolescence*, Pediatrics 2003.
+- [B] Scharf RJ, Scharf GJ, Stroustrup A., *Developmental Milestones*, Pediatrics in Review
+  2016;37(1):25-37 (AAP) — single source for the milestone domain (Table 3, 1mo-6y, 7 domains).
+  Tiered [B]: peer-reviewed AAP educational review/synthesis, not a formal consensus guideline.
 
 Rule: if you can't attach a source and a tier, it doesn't go in the file. See `naps.json`
 for the worked example the other domains should match.
