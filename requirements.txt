@@ -1,4 +1,4 @@
 google-adk
 google-genai
-# mcp / fastmcp per current ADK docs
+mcp==1.28.0   # FastMCP stdio server (mcp_server/); API verified at build time
 pytest

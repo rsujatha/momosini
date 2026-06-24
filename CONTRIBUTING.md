@@ -14,7 +14,8 @@ Lightweight on purpose — there are two of us and a deadline.
    facts-discipline lives; it doesn't get changed casually.
 
 ## Definition of Done
-- `mcp_server/`: 3 tools callable, lookups deterministic, `pytest mcp_server/tests` green.
+- `mcp_server/`: 2 tools callable (nap + milestone; play is generated, not a tool — see
+  `docs/DECISIONS.md`), lookups deterministic, `pytest mcp_server/tests` green.
 - `agent/`: real `LlmAgent` instantiated + `McpToolset` wired + loop runs (not import-only).
 - `eval/`: facts-trace test passes against recorded runs.
 - Each PR: updates the relevant doc if it changes behaviour.
