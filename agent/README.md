@@ -28,7 +28,8 @@ cp .env.example .env          # then put your Google AI Studio key in GOOGLE_API
 # (.env is git-ignored — never commit the key)
 ```
 Then drive `build_agent()` with the ADK runner. Optional: `ADK_MODEL` overrides the default
-(`gemini-2.0-flash`) if you want a different free-tier model.
+(`gemini-2.5-flash`) if you want a different free-tier model. (Note: `gemini-2.0-flash` was
+retired 2026-03-03 — a `429 ... limit: 0` usually means the model name is dead, not your quota.)
 
 ## Status
 - **Arc 2 (this) — done:** real `LlmAgent` + real `McpToolset`, seam verified.

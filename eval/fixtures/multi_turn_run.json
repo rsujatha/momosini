@@ -1,0 +1,19 @@
+{
+  "session": "onboarding — 9-month interview (two turns)",
+  "allowed_user_numbers": ["14", "16", "18", "19", "30", "00"],
+  "turns": [
+    {
+      "tool_returns": [
+        { "tool": "get_nap_guidance", "age_months": 9,
+          "result": { "typical_naps": "2", "daytime_sleep_h": "2-3" } },
+        { "tool": "get_milestone_checkin", "age_months": 9,
+          "result": { "domains": { "gross_motor": "pulls to stand", "fine_motor": "pincer grasp" } } }
+      ],
+      "output": "Around 9 months many babies are on 2 naps with about 2-3 hours of daytime sleep. When does your childcare help happen, and what would you most like that time for?"
+    },
+    {
+      "tool_returns": [],
+      "output": "Lovely. I've put your focus window at 14:00-16:00 while grandma has the baby, kept the 2 naps as untimed anchors, and set a calm evening together block 18:00-19:30. On a hard day, just the focus block and the evening count as a good day."
+    }
+  ]
+}

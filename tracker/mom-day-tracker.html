@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Momosini</title>
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Momosini — refined palette: Deep Teal hero, clay accent, ink + stone neutrals */
+    --bg:#f7f3ea; --panel:#fffdfa; --panel-2:#f3ede1;
+    --ink:#10241f; --muted:#5e7a73; --faint:#8a9b96;                /* Ink text · Stone neutral */
+    --bg-ink:#f3f8f6; --bg-muted:#a8c6bf; --bg-faint:#79a89f;   /* text directly on the deep-teal canvas */
+    --line:#ece5d9; --line-strong:#d9d2c6;
+    --signal:#df7553; --signal-ink:#c25e45; --signal-bg:#f6e7df; --signal-line:#ecc6b6;  /* Clay coral — focus */
+    --spark:#ff7f5c;                                                                       /* bright Coral Sun — reserved for tiny accents */
+    --teal:#13806e; --teal-d:#0f6f60; --teal-bg:#e2f0ec;                                   /* Teal Hills / Deep Teal — together */
+    --accent:#13806e; --accent-d:#0f6f60;                                                 /* primary actions */
+    --radius:16px;
+    --brand:"Fraunces",Georgia,"Times New Roman",serif;
+    --mono:"Nunito Sans",ui-sans-serif,system-ui,sans-serif;        /* no monospace anywhere */
+    --sans:"Nunito Sans",ui-sans-serif,system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;padding:24px 16px 80px}
+  .wrap{max-width:660px;margin:0 auto}
+  .qcard,.block,.log{color:var(--ink)}   /* light cards keep dark text */
+  .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+  /* brand lockup — reversed on a teal band */
+  .brand{margin:0 0 20px}
+  .brandbar{margin:0 0 16px}
+  .brandband{display:inline-flex;align-items:center}
+  .brandband .lockup{display:block;height:42px;width:auto}
+  .brandbar .brandband .lockup{height:28px}
+  .tagline{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px}
+
+  /* onboarding */
+  .onboard{max-width:560px;margin:0 auto}
+  .onboard .lead{font-size:23px;font-weight:650;letter-spacing:-.01em;margin:0 0 6px;color:var(--ink)}
+  .onboard .sub{color:var(--muted);font-size:14px;margin:0 0 22px}
+  .qcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+  .qcard .q{font-weight:600;font-size:14px;margin:0 0 3px}
+  .qcard .hint{font-size:12px;color:var(--muted);margin:0 0 11px}
+  .orow{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+  .orow select,.orow input[type=time],.orow input[type=text]{border:1px solid var(--line-strong);border-radius:8px;padding:8px 10px;font-family:var(--sans);font-size:14px;background:var(--panel-2);color:var(--ink)}
+  .orow input[type=time]{font-family:var(--mono)}
+  .orow input.goal{flex:1;min-width:180px}
+  .orow .sep{color:var(--faint);font-size:13px}
+  .orow .rm{border:0;background:transparent;color:var(--faint);cursor:pointer;font-size:17px;line-height:1}
+  .orow .rm:hover{color:var(--ink)}
+  .addbtn{border:1px dashed var(--line-strong);background:transparent;color:var(--muted);border-radius:8px;padding:8px 12px;font-size:13px;cursor:pointer;margin-top:2px}
+  .addbtn:hover{border-color:var(--teal);color:var(--teal)}
+  .yesno{display:inline-flex;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden;font-size:13px}
+  .yesno button{border:0;background:var(--panel-2);color:var(--muted);padding:8px 14px;cursor:pointer;font-family:var(--mono);letter-spacing:.03em}
+  .yesno button[aria-pressed="true"]{background:var(--accent);color:#fff}
+  .ev-time{margin-top:10px}
+  .paste{width:100%;min-height:84px;border:1px solid var(--line-strong);border-radius:8px;padding:9px 11px;font-family:var(--mono);font-size:12px;background:var(--panel-2);color:var(--ink);resize:vertical}
+  .paste:focus{outline:2px solid var(--ink);outline-offset:-1px;background:#fff}
+  .perr{font-size:12px;color:#c2503a}
+  .age-out{font-family:var(--mono);font-size:12px;color:var(--teal)}
+  .statusmsg{font-size:12.5px;color:var(--muted)}
+  .statusmsg.err{color:#c2503a}
+  .build{display:flex;gap:14px;margin-top:20px;align-items:center}
+  .build .go{border:0;background:var(--accent);color:#fff;border-radius:9px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
+  .build .go:hover{background:var(--accent-d)}
+  .build .skip{border:0;background:transparent;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline}
+
+  /* conversational onboarding (the interview) */
+  .convo{max-width:560px;margin:0 auto}
+  .convo .lead{font-size:23px;margin:0 0 6px;color:var(--ink);font-family:var(--brand);font-weight:700}
+  .convo .sub{color:var(--muted);font-size:14px;margin:0 0 18px}
+  .convo-log{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+  .msg{max-width:85%;padding:11px 14px;border-radius:16px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+  .msg.bot{align-self:flex-start;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-bottom-left-radius:5px}
+  .msg.me{align-self:flex-end;background:var(--accent);color:#fff;border-bottom-right-radius:5px}
+  .msg.err{align-self:flex-start;background:var(--signal-bg);color:var(--signal-ink);border:1px solid var(--signal-line);border-bottom-left-radius:5px}
+  .msg .sub2{display:block;margin-top:5px;font-size:11px;font-family:var(--mono);letter-spacing:.02em;color:var(--teal)}
+  .msg.me .sub2{color:rgba(255,255,255,.85)}
+  .typing{align-self:flex-start;display:inline-flex;gap:4px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-radius:16px;border-bottom-left-radius:5px}
+  .typing span{width:7px;height:7px;border-radius:50%;background:var(--faint);animation:tb 1s infinite ease-in-out}
+  .typing span:nth-child(2){animation-delay:.15s}
+  .typing span:nth-child(3){animation-delay:.3s}
+  @keyframes tb{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+  .convo-input{display:flex;gap:8px;align-items:flex-end;margin-top:10px}
+  .convo-input textarea,.convo-input input[type=date]{flex:1;border:1px solid var(--line-strong);border-radius:12px;padding:12px 13px;font-family:var(--sans);font-size:14.5px;background:var(--panel);color:var(--ink)}
+  .convo-input textarea{min-height:48px;max-height:170px;resize:none;line-height:1.45}
+  .convo-input textarea:focus,.convo-input input[type=date]:focus{outline:2px solid var(--teal);outline-offset:-1px}
+  .convo-send{border:0;background:var(--signal);color:#fff;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;flex:0 0 auto;display:grid;place-items:center}
+  .convo-send:hover{background:var(--signal-ink)}
+  .convo-send:disabled{opacity:.45;cursor:default}
+  .convo-foot{display:flex;gap:16px;margin-top:16px;align-items:center;flex-wrap:wrap}
+  .convo-foot button{border:0;background:transparent;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:underline;padding:0}
+  .convo-foot button:hover{color:var(--ink)}
+
+  /* header */
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px;flex-wrap:wrap}
+  .datenav{display:flex;align-items:center;gap:10px}
+  .datenav button.nav{border:1px solid var(--line-strong);background:var(--panel);color:var(--muted);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:15px;line-height:1}
+  .datenav button.nav:hover{background:var(--panel-2);color:var(--ink)}
+  .dateblock h1{font-size:22px;margin:2px 0 0;font-weight:650;letter-spacing:-.01em;color:var(--ink)}
+  .dateblock .day-of-week{font-family:var(--mono);font-size:12px;color:var(--signal-ink);letter-spacing:.04em}
+  .today-pill{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;background:var(--signal-bg);color:var(--signal-ink);border:1px solid var(--signal-line);padding:2px 7px;border-radius:20px;margin-left:8px;vertical-align:middle}
+  .today-pill.ahead{background:var(--teal-bg);color:var(--teal);border-color:var(--teal)}
+  .hctrl{display:flex;gap:8px;align-items:center}
+  .gear{border:1px solid var(--line-strong);background:var(--panel);color:var(--muted);border-radius:8px;padding:7px 10px;font-size:12px;cursor:pointer;font-family:var(--mono);letter-spacing:.03em}
+  .gear:hover{background:var(--panel-2);color:var(--ink)}
+  .mode{display:flex;border:1px solid var(--line-strong);border-radius:8px;overflow:hidden;font-size:12px}
+  .mode button{border:0;background:var(--panel);color:var(--muted);padding:7px 11px;cursor:pointer;font-family:var(--mono);letter-spacing:.04em}
+  .mode button[aria-pressed="true"]{background:var(--accent);color:#fff}
+
+  .min-note{font-size:12.5px;color:var(--teal);background:var(--teal-bg);border:1px solid var(--teal);border-radius:7px;padding:9px 11px;margin:2px 0 14px;display:none}
+  body.min-mode .min-note{display:block}
+  .changes-note{font-size:12.5px;color:var(--ink);background:var(--signal-bg);border:1px solid var(--signal-line);border-radius:7px;padding:9px 11px;margin:2px 0 14px}
+  .changes-note strong{color:var(--signal-ink)}
+
+  .blocks{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
+  .block{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:13px 14px}
+  .block.premium{border-color:var(--signal-line);background:linear-gradient(0deg,var(--panel),var(--panel)),var(--signal-bg);box-shadow:inset 3px 0 0 var(--signal)}
+  .block.together{background:linear-gradient(0deg,var(--panel),var(--panel)),var(--teal-bg);box-shadow:inset 3px 0 0 var(--teal)}
+  .block.nap{background:var(--panel-2);border-style:dashed}
+  .block.nap .name{color:var(--muted);font-weight:550}
+  .bmeta .time{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.03em}
+  .bmeta .time.flex{color:var(--faint);font-style:italic}
+  .bmeta .name{font-weight:600;font-size:14px;margin:1px 0 2px}
+  .bmeta .purpose{font-size:12px;color:var(--muted)}
+  .premium-flag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--signal-ink);margin-left:6px}
+  .together-flag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);margin-left:6px}
+  .nap-flag{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-left:6px}
+
+  .entries{margin-top:9px;border-top:1px solid var(--line);padding-top:9px;display:flex;flex-direction:column;gap:5px}
+  .block.premium .entries{border-top-color:var(--signal-line)}
+  .block.together .entries{border-top-color:var(--teal)}
+  .entry{display:flex;align-items:center;gap:9px}
+  .echeck{flex:0 0 auto;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line-strong);background:var(--panel);cursor:pointer;display:grid;place-items:center;transition:.12s}
+  .echeck svg{width:12px;height:12px;stroke:#fff;stroke-width:3;fill:none;opacity:0}
+  .echeck[aria-checked="true"]{background:var(--teal);border-color:var(--teal)}
+  .block.premium .echeck[aria-checked="true"]{background:var(--signal);border-color:var(--signal)}
+  .echeck[aria-checked="true"] svg{opacity:1}
+  .echeck:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+  .eline{flex:1;border:0;background:transparent;font-size:14px;color:var(--ink);padding:3px 0;font-family:var(--sans)}
+  .eline:focus{outline:0}
+  .eline::placeholder{color:var(--faint)}
+  .echeck[aria-checked="true"]+.eline{color:var(--faint);text-decoration:line-through}
+  .erem{border:0;background:transparent;color:var(--faint);cursor:pointer;font-size:16px;line-height:1;padding:0 2px;flex:0 0 auto}
+  .erem:hover{color:var(--ink)}
+
+  .saved{font-family:var(--mono);font-size:11px;color:var(--faint);text-align:right;margin:-12px 2px 22px;height:14px;letter-spacing:.03em}
+
+  .log{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 16px;margin-bottom:14px}
+  .log h2{font-size:13px;margin:0 0 14px;font-weight:650;letter-spacing:.02em;display:flex;align-items:center;gap:8px}
+  .log h2 .eyebrow{font-size:10px}
+  .stats{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+  .stat{flex:1;min-width:90px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:11px 12px}
+  .stat .n{font-family:var(--mono);font-size:26px;font-weight:600;line-height:1;color:var(--ink)}
+  .stat .n.gold{color:var(--signal-ink)}
+  .stat .l{font-size:11px;color:var(--muted);margin-top:5px}
+  .grid-cap{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+  .grid-cap .eyebrow{font-size:10px}
+  .grid-cap .legend{font-family:var(--mono);font-size:10px;color:var(--faint);display:flex;gap:11px;align-items:center}
+  .legend .key{display:inline-flex;align-items:center;gap:4px}
+  .legend .sw{width:9px;height:9px;border-radius:2px;display:inline-block}
+  .strip{display:grid;grid-template-columns:repeat(28,1fr);gap:3px}
+  .cell{aspect-ratio:1;border-radius:2px;background:var(--panel-2);border:1px solid var(--line)}
+  .cell.deep{background:var(--signal);border-color:var(--signal)}
+  .cell.shown{background:var(--teal-bg);border-color:var(--teal)}
+  .cell.today{box-shadow:0 0 0 2px var(--ink)}
+  .strip-foot{font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:6px;display:flex;justify-content:space-between}
+
+  .ms-add{display:flex;gap:8px;margin:4px 0 14px}
+  .ms-add input{flex:1;border:1px solid var(--line-strong);border-radius:8px;padding:9px 11px;font-family:var(--sans);font-size:14px;background:var(--panel-2)}
+  .ms-add input:focus{outline:2px solid var(--ink);outline-offset:-1px;background:#fff}
+  .ms-add button{border:0;background:var(--accent);color:#fff;border-radius:8px;padding:0 15px;font-size:13px;cursor:pointer;font-weight:550}
+  .ms-add button:hover{background:var(--accent-d)}
+  .ms-list{list-style:none;margin:0;padding:0}
+  .ms-item{display:flex;gap:11px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line)}
+  .ms-item .d{font-family:var(--mono);font-size:11px;color:var(--signal-ink);flex:0 0 auto;letter-spacing:.02em}
+  .ms-item .t{flex:1;font-size:14px}
+  .ms-item .x{border:0;background:transparent;color:var(--faint);cursor:pointer;font-size:15px;line-height:1;padding:0 2px}
+  .ms-item .x:hover{color:var(--ink)}
+  .ms-empty{font-size:13px;color:var(--faint);padding:6px 0}
+  .footer{display:flex;justify-content:space-between;align-items:center;margin-top:6px}
+  .footer .note{font-size:11px;color:var(--faint);max-width:70%}
+  .reset{border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-size:11px;padding:6px 10px;border-radius:7px;cursor:pointer;font-family:var(--mono);letter-spacing:.04em}
+  .reset:hover{border-color:var(--signal);color:var(--signal-ink)}
+  .loading{text-align:center;color:var(--muted);font-family:var(--mono);font-size:13px;padding:60px 0}
+
+  /* ---- Soft & rounded: rounded display type + warmer shapes ---- */
+  .onboard .lead,.dateblock h1,.qcard .q,.log h2{font-family:var(--brand);font-weight:500;letter-spacing:-.005em}
+  .onboard .lead{font-weight:600;font-size:27px;letter-spacing:-.015em}
+  .dateblock h1{font-weight:600}
+  .stat .n{font-family:var(--brand)}
+  .eyebrow{font-weight:800;letter-spacing:.06em;color:var(--teal)}
+  .day-of-week{font-weight:800;letter-spacing:.06em}
+  .build .go{border-radius:24px;font-weight:800}
+  .gear,.mode button,.yesno button,.reset{font-weight:700;letter-spacing:.02em}
+  .qcard,.log{border-radius:18px}
+  .block,.stat{border-radius:16px}
+  .today-pill,.premium-flag,.together-flag,.nap-flag{font-weight:800}
+
+  @media (max-width:480px){.strip{grid-template-columns:repeat(14,1fr)}.dateblock h1{font-size:19px}}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="loading" id="loading">loading…</div>
+
+  <!-- CONVERSATIONAL ONBOARDING (the interview) -->
+  <div class="convo" id="convo" style="display:none">
+    <div id="convoBrand"></div>
+    <p class="lead">Let’s shape your day together</p>
+    <div class="convo-log" id="convoLog" aria-live="polite"></div>
+    <div class="convo-input" id="convoInputRow">
+      <input type="date" id="convoDate" style="display:none">
+      <textarea id="convoText" rows="1" placeholder="Type your reply…"></textarea>
+      <button class="convo-send" id="convoSend" aria-label="Send" title="Send">→</button>
+    </div>
+    <div class="convo-foot">
+      <button id="convoForm">Fill in a form instead</button>
+      <button id="convoSkip">Skip — use a standard layout</button>
+    </div>
+  </div>
+
+  <!-- ONBOARDING -->
+  <div class="onboard" id="onboard" style="display:none">
+    <div class="brand"><span class="brandband"><svg class="lockup" viewBox="0 0 308 72" role="img" aria-label="Momosini"><g transform="translate(6,4) scale(1.14)"><circle cx="28" cy="13" r="6.5" fill="#FF7F5C"/><path d="M5 45 A11.5 11.5 0 0 1 28 45 A11.5 11.5 0 0 1 51 45" fill="none" stroke="#13806E" stroke-width="5.5" stroke-linecap="round"/></g><text x="84" y="51" fill="#0F6F60" style="font-family:&apos;Fraunces&apos;,Georgia,serif;font-weight:600;font-size:44px;letter-spacing:-0.6px">Mom<tspan fill="#FF7F5C">o</tspan>sini</text></svg></span><span class="tagline">AI that plans the day around your baby</span></div>
+    <p class="lead">Let’s shape this</p>
+    <p class="sub">A few quick questions, then your organiser is built from your baby’s routine and the help you have. You can change any of it later.</p>
+
+    <div class="qcard">
+      <p class="q">Baby’s birth date</p>
+      <p class="hint">Kept on this device. We use it to work out your baby’s age — and to nudge you when their routine is about to shift.</p>
+      <div class="orow"><input type="date" id="qBirth"><span class="age-out" id="ageOut"></span></div>
+    </div>
+
+    <div class="qcard">
+      <p class="q">Tell me about your day</p>
+      <p class="hint">In your own words — when you’re hands-free, what you’re hoping to get to, anything that shapes the day. The assistant builds around this.</p>
+      <textarea id="qDesc" class="paste" placeholder="e.g. I’m home with the baby. She naps mid-morning and after lunch. My mum takes her 2–4pm and I’d love to use that for my application…"></textarea>
+    </div>
+
+    <div class="qcard">
+      <p class="q">What time does your day usually start?</p>
+      <p class="hint">When you’re first up and could do something.</p>
+      <div class="orow"><input type="time" id="qStart" value="06:30"></div>
+    </div>
+
+    <div class="qcard">
+      <p class="q">When does someone else have the baby?</p>
+      <p class="hint">Partner, nursery, a nanny, grandparents — your hands-free windows. These are the times you control, so they get a clock. Add each one.</p>
+      <div id="helpRows"></div>
+      <button class="addbtn" id="addHelp">+ add a window</button>
+    </div>
+
+    <div class="qcard">
+      <p class="q">Baby’s naps</p>
+      <p class="hint">Naps are unpredictable, so we keep them <em>untimed</em> — just roughly which part of the day, as an anchor to build around. The day flows around the naps, not a clock.</p>
+      <div id="napRows"></div>
+      <button class="addbtn" id="addNap">+ add a nap</button>
+    </div>
+
+    <div class="qcard">
+      <p class="q">Any time after bedtime?</p>
+      <p class="hint">An evening block, if you have one.</p>
+      <div class="orow">
+        <span class="yesno" role="group">
+          <button id="evOn" aria-pressed="true">Yes</button>
+          <button id="evOff" aria-pressed="false">No</button>
+        </span>
+      </div>
+      <div class="orow ev-time" id="evTimeRow"><span class="sep">bedtime</span><input type="time" id="qBed" value="20:00"></div>
+    </div>
+
+    <div class="qcard">
+      <p class="q">What do you most want the focused time for?</p>
+      <p class="hint">Optional — it just labels your focus window.</p>
+      <div class="orow"><input type="text" class="goal" id="qGoal" placeholder="work, study, a project, rest…" maxlength="40"></div>
+    </div>
+
+    <div class="qcard">
+      <p class="q">Have a plan from the assistant?</p>
+      <p class="hint">If the assistant composed a day for you, paste the JSON here to load it directly — entries stay editable afterwards.</p>
+      <textarea id="pasteJson" class="paste" placeholder='{"blocks":[ … ]}'></textarea>
+      <div class="orow"><button class="addbtn" id="loadJson">Load composed day</button><span class="perr" id="pasteErr"></span></div>
+    </div>
+
+    <div class="build">
+      <button class="go" id="composeBtn">Compose with the assistant</button>
+      <button class="skip" id="buildBtn">Build it myself</button>
+      <button class="skip" id="skipBtn">Skip — standard layout</button>
+    </div>
+    <div class="orow" style="margin-top:4px"><span class="statusmsg" id="composeMsg"></span></div>
+  </div>
+
+  <!-- TRACKER -->
+  <div id="main" style="display:none">
+    <div class="brandbar"><span class="brandband"><svg class="lockup" viewBox="0 0 308 72" role="img" aria-label="Momosini"><g transform="translate(6,4) scale(1.14)"><circle cx="28" cy="13" r="6.5" fill="#FF7F5C"/><path d="M5 45 A11.5 11.5 0 0 1 28 45 A11.5 11.5 0 0 1 51 45" fill="none" stroke="#13806E" stroke-width="5.5" stroke-linecap="round"/></g><text x="84" y="51" fill="#0F6F60" style="font-family:&apos;Fraunces&apos;,Georgia,serif;font-weight:600;font-size:44px;letter-spacing:-0.6px">Mom<tspan fill="#FF7F5C">o</tspan>sini</text></svg></span></div>
+    <header>
+      <div class="datenav">
+        <button class="nav" id="prev" aria-label="Previous day">‹</button>
+        <div class="dateblock">
+          <span class="day-of-week" id="dow">—</span>
+          <h1 id="dateLabel">—<span class="today-pill" id="todayPill" style="display:none">today</span></h1>
+        </div>
+        <button class="nav" id="next" aria-label="Next day">›</button>
+      </div>
+      <div class="hctrl">
+        <button class="gear" id="editSetup" title="Edit your day shape">day shape</button>
+        <div class="mode" role="group" aria-label="Day mode">
+          <button id="modeFull" aria-pressed="true">Full day</button>
+          <button id="modeMin" aria-pressed="false">Minimum day</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="changes-note" id="changesNote" style="display:none"></div>
+    <div class="min-note" id="minNote">Minimum day — just the focus block. Doing the one focused thing is a full success; everything else is bonus.</div>
+    <div class="blocks" id="blocks"></div>
+    <div class="saved" id="saved"></div>
+
+    <section class="log">
+      <h2><span class="eyebrow">Progress</span> Observation log</h2>
+      <div class="stats">
+        <div class="stat"><div class="n gold" id="streak">0</div><div class="l">day focus streak</div></div>
+        <div class="stat"><div class="n" id="weekDeep">0</div><div class="l">focus days this week</div></div>
+        <div class="stat"><div class="n" id="total">0</div><div class="l">focus days logged</div></div>
+      </div>
+      <div class="grid-cap">
+        <span class="eyebrow">Last 28 days</span>
+        <span class="legend">
+          <span class="key"><span class="sw" style="background:var(--signal)"></span>focus</span>
+          <span class="key"><span class="sw" style="background:var(--teal-bg);border:1px solid var(--teal)"></span>showed up</span>
+        </span>
+      </div>
+      <div class="strip" id="strip"></div>
+      <div class="strip-foot"><span id="stripStart">—</span><span id="stripEnd">today</span></div>
+    </section>
+
+    <section class="log">
+      <h2><span class="eyebrow">What actually moved</span> Your wins</h2>
+      <div class="ms-add">
+        <input id="msInput" placeholder="e.g. finished the thing I kept putting off" maxlength="120">
+        <button id="msAdd">Log it</button>
+      </div>
+      <ul class="ms-list" id="msList"></ul>
+      <div class="footer">
+        <span class="note">Saves to this browser, on this device. Nothing leaves it.</span>
+        <button class="reset" id="reset">Clear all</button>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+const KEY_DAYS="block-tracker-days";
+const KEY_MS="block-tracker-milestones";
+const KEY_SETUP="block-tracker-setup";
+const MAX_AHEAD=7;
+
+/* A BLOCK definition (the day "shape", persisted in setup):
+   { id, name, purpose?, time?, focus?, together?, nap?, minDay? }
+   - focus    : the one protected focus window (contract: is_focus / kind:"focus")
+   - together : whole-family / evening (kind:"together")
+   - nap      : untimed nap anchor (kind:"nap") — NEVER carries a time, never focus
+   - minDay   : show in Minimum day (contract: show_in_minimum_day)
+   Per-day content lives separately in days[dateKey][blockId].entries = [{t,done}] and
+   is always user-editable, whether typed by hand or seeded from the agent. */
+const DEFAULT_BLOCKS=[
+  {id:"morning",time:"~06:00–08:00",name:"Early morning",purpose:"Low-stakes admin — email, messages, quick errands, lighter reading."},
+  {id:"premium",time:"Childcare block · 2–3 hrs",name:"Focus window",purpose:"Your one focused task. No switching. This is the day’s signal.",focus:true,minDay:true},
+  {id:"nap1",name:"Midday nap",purpose:"Naps are unpredictable — kept untimed. Build around it, not the clock.",nap:true},
+  {id:"withbaby",name:"With baby",purpose:"Cook, tidy, errands, laundry — physical things she can join. Household done as shared time, not stolen focus.",together:true,minDay:true},
+  {id:"evening",time:"~20:00–22:00",name:"Evening",purpose:"Review today, line up tomorrow’s focus task, then light work or deliberate rest."}
+];
+
+const NAP_WHENS=["Morning","Midday","Early afternoon","Late afternoon"];
+function napSort(w){const i=NAP_WHENS.indexOf(w);return [600,780,900,1020][i>=0?i:1];}
+
+// age_months computed locally from the birth date (stays on this device).
+function ageMonths(bd){
+  if(!bd)return null;
+  const b=new Date(bd+"T00:00:00"); if(isNaN(b))return null;
+  const n=new Date();
+  let m=(n.getFullYear()-b.getFullYear())*12+(n.getMonth()-b.getMonth());
+  if(n.getDate()<b.getDate())m--;
+  return m;
+}
+function ageLabel(m){
+  if(m==null||m<0)return "";
+  if(m<24)return m+" month"+(m===1?"":"s");
+  const y=Math.floor(m/12),mo=m%12;
+  return y+"y"+(mo?(" "+mo+"m"):"");
+}
+function updateAge(){const m=ageMonths($("qBirth").value);$("ageOut").textContent=m==null?"":("≈ "+ageLabel(m));}
+
+let BLOCKS=DEFAULT_BLOCKS.slice();
+let setup=null;
+let days={};
+let milestones=[];
+let composedChanges=[];
+let cursor=new Date(); cursor.setHours(0,0,0,0);
+let saveTimer=null;
+
+const $=id=>document.getElementById(id);
+const fmtKey=d=>{const z=n=>String(n).padStart(2,"0");return d.getFullYear()+"-"+z(d.getMonth()+1)+"-"+z(d.getDate());};
+const todayKey=()=>fmtKey(new Date(new Date().setHours(0,0,0,0)));
+const toMin=t=>{const p=(t||"").split(":");return (+p[0])*60+(+p[1]||0);};
+const label=(a,b)=>a+"–"+b;
+function minToStr(m){const h=Math.floor(m/60),mm=m%60;return String(h).padStart(2,"0")+":"+String(mm).padStart(2,"0");}
+
+/* ---------- built-in (deterministic) block generation ---------- */
+function focusPurpose(ans){
+  const g=(ans&&ans.goal||"").trim();
+  return g? ("Your "+g+" time — one focused thing, no switching.") : "Your one focused task. No switching. This is the day’s signal.";
+}
+function buildBlocks(ans){
+  const helps=(ans.helps||[]).filter(h=>h.from&&h.to)
+    .map(h=>({...h,dur:toMin(h.to)-toMin(h.from),sort:toMin(h.from)})).filter(h=>h.dur>0);
+  const naps=(ans.naps||[]).map(n=>({when:n.when||"Midday",sort:napSort(n.when)}));
+  const startMin=toMin(ans.start||"06:30");
+  const earliest=helps.length?Math.min.apply(null,helps.map(h=>h.sort)):null;
+
+  const result=[];
+  if(earliest===null || earliest-startMin>=45){
+    result.push({id:"morning",time:(ans.start||"06:30")+(earliest!==null?"–"+minToStr(earliest):" onward"),
+      name:"Early morning",purpose:"Low-stakes admin — email, messages, quick errands, lighter reading.",sort:startMin});
+  }
+
+  // Focus comes ONLY from a childcare/help window (a time the parent controls). Naps never become focus.
+  let focusHelp=null;
+  if(helps.length){focusHelp=helps.slice().sort((a,b)=>b.dur-a.dur)[0];}
+
+  const middle=[];
+  let fc=0;
+  helps.forEach(h=>{
+    const isFocus=h===focusHelp;
+    middle.push({id:isFocus?"premium":("focus"+(++fc)),time:label(h.from,h.to),
+      name:isFocus?"Focus window":((h.who&&h.who!=="Other")?h.who+" window":"Focus window"),
+      purpose:isFocus?focusPurpose(ans):"Focused work — one thing, no switching.",
+      focus:isFocus,minDay:isFocus,sort:h.sort});
+  });
+  naps.forEach((n,i)=>{
+    middle.push({id:"nap"+(i+1),name:n.when+" nap",
+      purpose:"Naps are unpredictable — kept untimed. Build around it, not the clock.",nap:true,sort:n.sort});
+  });
+  middle.sort((a,b)=>a.sort-b.sort);
+  result.push(...middle);
+
+  result.push({id:"withbaby",name:"With baby",
+    purpose:"Cook, tidy, errands, laundry — physical things she can join. Household done as shared time, not stolen focus.",
+    together:true,minDay:true});
+  if(ans.eveningOn && ans.bedtime){
+    result.push({id:"evening",time:"after "+ans.bedtime,name:"Evening",
+      purpose:"Review today, line up tomorrow’s focus task, then light work or deliberate rest."});
+  }
+
+  // Guarantee a focus block exists even with no childcare window (never a nap).
+  if(!result.some(b=>b.focus)){
+    const cand=result.find(b=>!b.together&&!b.nap&&b.id!=="morning"&&b.id!=="evening");
+    if(cand){cand.focus=true;cand.minDay=true;cand.id="premium";cand.name="Focus window";cand.purpose=focusPurpose(ans);}
+    else{result.unshift({id:"premium",time:"your best window",name:"Focus window",purpose:focusPurpose(ans),focus:true,minDay:true});}
+  }
+  return result;
+}
+
+/* ---------- agent → tracker adapter (the render(blocks_json) seam) ---------- */
+function mapAgentBlock(b){
+  const kind=b.kind||"";
+  const isNap=kind==="nap";
+  const isFocus=(b.is_focus===true)||kind==="focus";
+  const together=kind==="together";
+  let time="";
+  // only parent-scheduled blocks carry a clock; never a zero-length window (start==end)
+  if(!isNap && b.window && b.window.start && b.window.end && b.window.start!==b.window.end) time=b.window.start+"–"+b.window.end;
+  const minDay=(b.show_in_minimum_day===true)||isFocus||together;
+  return {id:String(b.id||("b"+Math.random().toString(36).slice(2,7))),
+    name:b.label||b.id||"Block",purpose:"",time:time,
+    focus:isFocus,together:together,nap:isNap,minDay:minDay};
+}
+// Defensive cleanup of the model's windows BEFORE rendering: the contract says only blocks the
+// parent actually scheduled carry a clock, and never two on the same slot. The prompt asks for
+// this, but a model won't comply 100%, so the tracker enforces it deterministically:
+//  - drop any missing or zero-length window (start==end)
+//  - drop a window that duplicates an earlier block's slot (keep the first, e.g. the focus block)
+// Blocks whose window is dropped simply render untimed/relative — which is the intended default.
+function sanitizeWindows(arr){
+  const seen={};
+  arr.forEach(b=>{
+    const w=b.window;
+    if(!w || !w.start || !w.end || w.start===w.end){ if(b.window) delete b.window; return; }
+    const key=w.start+"-"+w.end;
+    if(seen[key]){ delete b.window; } else { seen[key]=true; }
+  });
+  return arr;
+}
+function seedDayFromBlocks(blocks){
+  const k=fmtKey(cursor);
+  const day={mode:"full"};
+  blocks.forEach(b=>{
+    const ents=(Array.isArray(b.entries)&&b.entries.length)
+      ? b.entries.map(t=>({t:String(t),done:false}))
+      : [{t:"",done:false}];
+    day[mapAgentBlock(b).id]={entries:ents};
+  });
+  days[k]=day;
+}
+// Public seam: feed the agent's composed day JSON straight in. Entries remain editable.
+function applyComposedDay(payload, answers){
+  let data = (typeof payload==="string") ? JSON.parse(payload) : payload;
+  const arr = Array.isArray(data) ? data : (data && data.blocks) || [];
+  if(!arr.length) throw new Error("No blocks found in the composed day.");
+  sanitizeWindows(arr);   // strip zero-length + duplicate time slots before rendering
+  BLOCKS = arr.map(mapAgentBlock);
+  composedChanges = (data && Array.isArray(data.changes)) ? data.changes : [];
+  setup = {blocks:BLOCKS, answers:answers||null, source:"agent"};
+  saveSetup();
+  seedDayFromBlocks(arr);
+  saveDays();
+  $("convo").style.display="none"; $("onboard").style.display="none"; $("main").style.display="block";
+  renderHeader(); renderDay(); renderProgress(); renderMilestones(); renderChanges();
+}
+window.applyComposedDay = applyComposedDay; // backend/integration entry point
+
+/* ---------- conversational onboarding (the interview) ---------- */
+/* One question at a time, driven by the agent via POST /converse. The model leads: it asks the
+   birthday, invites the parent to speak freely, then asks targeted follow-ups until it can compose.
+   The browser only computes age_months locally and relays turns; the agent decides what to ask.
+   Personal text stays on this device — only age_months is sent, and only to the local app. */
+let convo={sessionId:null, step:"birth", birthDate:"", ageM:null, firstText:"", busy:false};
+
+function convoScroll(){const l=$("convoLog");l.scrollTop=l.scrollHeight;}
+function convoAddMsg(text, who, sub){
+  const d=document.createElement("div");
+  d.className="msg "+(who||"bot");
+  d.textContent=text||"";
+  if(sub){const s=document.createElement("span");s.className="sub2";s.textContent=sub;d.appendChild(s);}
+  $("convoLog").appendChild(d);
+  convoScroll();
+  return d;
+}
+let convoTypingEl=null;
+function convoTyping(on){
+  if(on){
+    if(convoTypingEl)return;
+    convoTypingEl=document.createElement("div");
+    convoTypingEl.className="typing";
+    convoTypingEl.innerHTML="<span></span><span></span><span></span>";
+    $("convoLog").appendChild(convoTypingEl);convoScroll();
+  }else if(convoTypingEl){convoTypingEl.remove();convoTypingEl=null;}
+}
+function convoSetInput(mode){            // "date" | "text" | "off"
+  const date=$("convoDate"), text=$("convoText"), send=$("convoSend");
+  if(mode==="date"){date.style.display="";text.style.display="none";send.disabled=false;date.focus();}
+  else if(mode==="text"){date.style.display="none";text.style.display="";send.disabled=false;text.value="";text.style.height="auto";text.focus();}
+  else{send.disabled=true;}
+}
+function convoBusy(on){
+  convo.busy=on;
+  $("convoSend").disabled=on;
+  $("convoText").disabled=on;
+  $("convoDate").disabled=on;
+}
+
+function renderConversation(){
+  convo={sessionId:null, step:"birth", birthDate:"", ageM:null, firstText:"", busy:false};
+  // Reuse the existing reversed brand lockup rather than duplicating the (large) image data.
+  const brand=$("convoBrand"); brand.innerHTML="";
+  const src=document.querySelector("#onboard .brand");
+  if(src) brand.appendChild(src.cloneNode(true));
+  $("convoLog").innerHTML=""; convoTypingEl=null;
+  $("convo").style.display="block"; $("onboard").style.display="none"; $("main").style.display="none";
+  convoAddMsg("Hello — I’m Sini. I’m here to help you shape a realistic day around your little one and look after you in the process. To start, what’s your baby’s date of birth?","bot");
+  convoSetInput("date");
+}
+
+async function convoSend(){
+  if(convo.busy)return;
+  if(convo.step==="birth"){
+    const bd=$("convoDate").value;
+    const m=ageMonths(bd);
+    if(m==null){convoAddMsg("Could you pick your baby’s date of birth so I can tailor things to their age?","err");return;}
+    if(m<0||m>83){convoAddMsg("That date looks a little off — could you check it? (I can help from newborn up to about 6 years.)","err");return;}
+    convo.birthDate=bd; convo.ageM=m;
+    convoAddMsg("Born "+bd, "me", "≈ "+ageLabel(m));
+    convo.step="freetext";
+    convoAddMsg("Thank you. Now tell me about a typical day in your own words — when you’re hands-on with the baby, when you get a break, and what you’d love a bit of time for. Say as much or as little as you like.","bot");
+    convoSetInput("text");
+    return;
+  }
+  // freetext (first turn) or interview (later turns): a text answer
+  const text=$("convoText").value.trim();
+  if(!text){return;}
+  convoAddMsg(text,"me");
+  if(convo.step==="freetext"){convo.firstText=text;}
+  convoBusy(true); convoSetInput("off"); convoTyping(true);
+  try{
+    const body=convo.sessionId
+      ? {session_id:convo.sessionId, message:text}
+      : {message:text, age_months:convo.ageM, trigger:"onboarding"};
+    const res=await fetch("/converse",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+    const data=await res.json();
+    convoTyping(false);
+    if(data&&data.session_id)convo.sessionId=data.session_id;
+    if(!data||!data.ok){
+      convoAddMsg("Sorry — "+((data&&data.error)||"something went wrong reaching the assistant.")+" You can try sending that again.","err");
+      convoBusy(false); convoSetInput("text"); $("convoText").value=text; return;
+    }
+    if(data.done && data.composed){
+      const used=(data.tool_calls&&data.tool_calls.length)?("checked "+[...new Set(data.tool_calls)].map(prettyTool).join(" + ")):"";
+      convoAddMsg("That’s everything I need — here’s your day. You can edit anything.","bot",used);
+      setTimeout(()=>applyComposedDay(data.composed,{birthDate:convo.birthDate,dayDescription:convo.firstText,source:"conversation"}),450);
+      return;
+    }
+    // a follow-up question
+    convo.step="interview";
+    convoAddMsg(data.question||"Could you tell me a little more?","bot");
+    convoBusy(false); convoSetInput("text");
+  }catch(e){
+    convoTyping(false);
+    convoAddMsg("I couldn’t reach the assistant. Is the local app running? (uvicorn web.app:app)","err");
+    convoBusy(false); convoSetInput("text"); $("convoText").value=text;
+  }
+}
+function prettyTool(n){
+  return n==="get_nap_guidance"?"nap guidance":(n==="get_milestone_checkin"?"milestone guidance":n);
+}
+
+/* ---------- day model ---------- */
+function blockInit(){return{entries:[{t:"",done:false}]};}
+function entryShape(b){
+  if(!b||typeof b!=="object")return blockInit();
+  if(!Array.isArray(b.entries)){const t=b.t!==undefined?b.t:"";const done=!!b.done;return{entries:t!==""?[{t:t,done:done}]:[{t:"",done:done}]};}
+  if(!b.entries.length)b.entries=[{t:"",done:false}];
+  b.entries=b.entries.map(en=>({t:en&&en.t!==undefined?en.t:"",done:!!(en&&en.done)}));
+  return b;
+}
+function blankDay(){const d={mode:"full"};BLOCKS.forEach(b=>d[b.id]=blockInit());return d;}
+function normalizeDay(d){
+  if(!d)return blankDay();
+  d.mode=(d.mode==="min")?"min":"full";
+  BLOCKS.forEach(b=>{d[b.id]=entryShape(d[b.id]);});
+  for(const k in d){if(k!=="mode"&&!BLOCKS.some(b=>b.id===k))d[k]=entryShape(d[k]);}
+  return d;
+}
+function cur(){const k=fmtKey(cursor);if(!days[k])days[k]=blankDay();return normalizeDay(days[k]);}
+function blkDone(blk){return !!(blk&&blk.entries&&blk.entries.some(e=>e.done));}
+function focusId(){const f=BLOCKS.find(b=>b.focus);return f?f.id:"premium";}
+function dayDeep(rec){if(!rec)return false;normalizeDay(rec);return blkDone(rec[focusId()]);}
+function dayShown(rec){if(!rec)return false;normalizeDay(rec);const fid=focusId();for(const k in rec){if(k!=="mode"&&k!==fid&&blkDone(rec[k]))return true;}return false;}
+function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
+
+/* ---------- storage (browser localStorage) ---------- */
+async function load(){
+  try{const v=localStorage.getItem(KEY_SETUP);if(v)setup=JSON.parse(v);}catch(e){setup=null;}
+  try{const v=localStorage.getItem(KEY_DAYS);if(v)days=JSON.parse(v);}catch(e){days={};}
+  try{const v=localStorage.getItem(KEY_MS);if(v)milestones=JSON.parse(v);}catch(e){milestones=[];}
+}
+function saveSetup(){try{localStorage.setItem(KEY_SETUP,JSON.stringify(setup));}catch(e){}}
+async function saveDays(){flashSaving();try{localStorage.setItem(KEY_DAYS,JSON.stringify(days));flashSaved();}catch(e){$("saved").textContent="couldn’t save — try again";}}
+function saveMs(){try{localStorage.setItem(KEY_MS,JSON.stringify(milestones));}catch(e){}}
+function queueSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveDays,450);}
+function flashSaving(){$("saved").textContent="saving…";}
+function flashSaved(){const t=new Date();$("saved").textContent="saved · "+String(t.getHours()).padStart(2,"0")+":"+String(t.getMinutes()).padStart(2,"0");}
+
+const DOW=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+const MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+/* ---------- onboarding ---------- */
+function helpRow(v){
+  v=v||{who:"Partner",from:"08:00",to:"10:30"};
+  const r=document.createElement("div");r.className="orow";
+  r.innerHTML='<select class="who"></select><input type="time" class="from" value="'+(v.from||"")+'"><span class="sep">to</span><input type="time" class="to" value="'+(v.to||"")+'"><button class="rm" aria-label="Remove">×</button>';
+  const sel=r.querySelector(".who");
+  ["Partner","Nursery / daycare","Nanny","Grandparent","Other"].forEach(o=>{const op=document.createElement("option");op.value=o;op.textContent=o;if(o===v.who)op.selected=true;sel.appendChild(op);});
+  r.querySelector(".rm").addEventListener("click",()=>r.remove());
+  return r;
+}
+function napRow(v){
+  v=v||{when:"Midday"};
+  const r=document.createElement("div");r.className="orow";
+  r.innerHTML='<select class="when"></select><span class="sep">(untimed)</span><button class="rm" aria-label="Remove">×</button>';
+  const sel=r.querySelector(".when");
+  NAP_WHENS.forEach(o=>{const op=document.createElement("option");op.value=o;op.textContent=o;if(o===v.when)op.selected=true;sel.appendChild(op);});
+  r.querySelector(".rm").addEventListener("click",()=>r.remove());
+  return r;
+}
+function renderOnboard(ans){
+  ans=ans||{};
+  $("qBirth").value=ans.birthDate||""; updateAge();
+  $("qDesc").value=ans.dayDescription||"";
+  $("composeMsg").textContent="";$("composeMsg").className="statusmsg";
+  $("qStart").value=ans.start||"06:30";
+  const hr=$("helpRows");hr.innerHTML="";
+  (ans.helps&&ans.helps.length?ans.helps:[null]).forEach(h=>hr.appendChild(helpRow(h)));
+  const nr=$("napRows");nr.innerHTML="";
+  (ans.naps&&ans.naps.length?ans.naps:[null]).forEach(n=>nr.appendChild(napRow(n)));
+  const evOn=ans.eveningOn!==false;
+  $("evOn").setAttribute("aria-pressed",evOn);$("evOff").setAttribute("aria-pressed",!evOn);
+  $("evTimeRow").style.display=evOn?"flex":"none";
+  $("qBed").value=ans.bedtime||"20:00";
+  $("qGoal").value=ans.goal||"";
+  $("pasteJson").value=""; $("pasteErr").textContent="";
+  $("convo").style.display="none";$("onboard").style.display="block";$("main").style.display="none";
+}
+function collectAnswers(){
+  return {
+    birthDate:$("qBirth").value||"",
+    dayDescription:$("qDesc").value.trim(),
+    start:$("qStart").value||"06:30",
+    helps:[].slice.call(document.querySelectorAll("#helpRows .orow")).map(r=>({who:r.querySelector(".who").value,from:r.querySelector(".from").value,to:r.querySelector(".to").value})),
+    naps:[].slice.call(document.querySelectorAll("#napRows .orow")).map(r=>({when:r.querySelector(".when").value})),
+    eveningOn:$("evOn").getAttribute("aria-pressed")==="true",
+    bedtime:$("qBed").value||"20:00",
+    goal:$("qGoal").value.trim()
+  };
+}
+function finishSetup(blocks,answers){
+  BLOCKS=blocks;setup={blocks:blocks,answers:answers,source:"form"};composedChanges=[];saveSetup();
+  $("convo").style.display="none";$("onboard").style.display="none";$("main").style.display="block";
+  renderHeader();renderDay();renderProgress();renderMilestones();renderChanges();
+}
+
+// Ask the agent (via the local /compose endpoint) to compose the day, then render it.
+async function composeWithAgent(){
+  const msg=$("composeMsg");
+  const setMsg=(t,err)=>{msg.textContent=t;msg.className="statusmsg"+(err?" err":"");};
+  const a=collectAnswers();
+  const m=ageMonths(a.birthDate);
+  if(m==null){setMsg("Add your baby’s birth date first — the assistant needs the age.",true);return;}
+  if(m<0||m>83){setMsg("That birth date looks off — please check it.",true);return;}
+  if(!a.dayDescription){setMsg("Tell me a little about your day first.",true);return;}
+  const helpStr=(a.helps||[]).filter(h=>h.from&&h.to)
+    .map(h=>h.from+"-"+h.to+(h.who&&h.who!=="Other"?" ("+h.who+")":"")).join(", ");
+  const evening=(a.eveningOn&&a.bedtime)?("bedtime around "+a.bedtime):"";
+  setMsg("Composing your day… (the assistant is calling its tools)");
+  $("composeBtn").disabled=true;
+  try{
+    const res=await fetch("/compose",{method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({age_months:m,day_description:a.dayDescription,help_windows:helpStr,goal:a.goal,evening:evening,trigger:"onboarding"})});
+    const data=await res.json();
+    if(!data.ok){setMsg("Assistant error: "+(data.error||"something went wrong"),true);return;}
+    if(!data.composed){setMsg("The assistant needs a bit more — "+(data.question||"please add detail"),true);return;}
+    applyComposedDay(data.composed,a);
+  }catch(e){
+    setMsg("Couldn’t reach the assistant. Is the local app running?  (uvicorn web.app:app)",true);
+  }finally{$("composeBtn").disabled=false;}
+}
+
+/* ---------- tracker render ---------- */
+function renderChanges(){
+  const el=$("changesNote");if(!el)return;
+  if(composedChanges&&composedChanges.length){
+    el.innerHTML='<strong>What changed:</strong> '+composedChanges.map(c=>esc((c.change||"")+(c.reason?" — "+c.reason:""))).join(" · ");
+    el.style.display="block";
+  }else{el.style.display="none";}
+}
+function renderHeader(){
+  $("dow").textContent=DOW[cursor.getDay()].toUpperCase();
+  $("dateLabel").childNodes[0].nodeValue=MON[cursor.getMonth()]+" "+cursor.getDate();
+  const todayMid=new Date(new Date().setHours(0,0,0,0));
+  const diff=Math.round((cursor-todayMid)/86400000);
+  const pill=$("todayPill");
+  if(diff===0){pill.textContent="today";pill.className="today-pill";pill.style.display="inline-block";}
+  else if(diff===1){pill.textContent="tomorrow";pill.className="today-pill ahead";pill.style.display="inline-block";}
+  else if(diff>1){pill.textContent="in "+diff+" days";pill.className="today-pill ahead";pill.style.display="inline-block";}
+  else{pill.style.display="none";}
+  $("next").style.visibility=(diff>=MAX_AHEAD)?"hidden":"visible";
+}
+function focusEntry(b,i){const el=document.querySelector('.eline[data-blk="'+b+'"][data-i="'+i+'"]');if(el){el.focus();const v=el.value;el.value="";el.value=v;}}
+function renderDay(){
+  const d=cur();
+  $("modeFull").setAttribute("aria-pressed",d.mode==="full");
+  $("modeMin").setAttribute("aria-pressed",d.mode==="min");
+  document.body.classList.toggle("min-mode",d.mode==="min");
+  const wrap=$("blocks");wrap.innerHTML="";
+  const visible=d.mode==="min"?BLOCKS.filter(b=>b.focus||b.together||b.minDay):BLOCKS;
+  visible.forEach(b=>{
+    const bd=d[b.id];
+    const rows=bd.entries.map((en,i)=>(
+      '<div class="entry">'+
+        '<button class="echeck" data-blk="'+b.id+'" data-i="'+i+'" role="checkbox" aria-checked="'+en.done+'" aria-label="Done">'+
+          '<svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 7"></polyline></svg>'+
+        '</button>'+
+        '<input class="eline" data-blk="'+b.id+'" data-i="'+i+'" placeholder="'+(i===0?'what’s in this block today':'another item')+'" value="'+esc(en.t)+'">'+
+        (bd.entries.length>1?'<button class="erem" data-blk="'+b.id+'" data-i="'+i+'" aria-label="Remove">×</button>':'')+
+      '</div>'
+    )).join("");
+    const timeHtml = b.nap ? '<div class="time flex">nap · flexible</div>'
+                   : (b.time ? '<div class="time">'+esc(b.time)+'</div>'
+                   : '<div class="time flex">flexible · around the naps</div>');
+    const flag = b.focus?'<span class="premium-flag">focus</span>'
+               : b.together?'<span class="together-flag">together</span>'
+               : b.nap?'<span class="nap-flag">nap</span>':'';
+    const purposeHtml = b.purpose ? '<div class="purpose">'+esc(b.purpose)+'</div>' : '';
+    const el=document.createElement("div");
+    el.className="block"+(b.focus?" premium":"")+(b.together?" together":"")+(b.nap?" nap":"");
+    el.innerHTML='<div class="bmeta">'+timeHtml+'<div class="name">'+esc(b.name)+flag+'</div>'+purposeHtml+'</div><div class="entries">'+rows+'</div>';
+    wrap.appendChild(el);
+  });
+  wrap.querySelectorAll(".eline").forEach(inp=>{
+    inp.addEventListener("input",e=>{const b=e.target.dataset.blk,i=+e.target.dataset.i;cur()[b].entries[i].t=e.target.value;queueSave();});
+    inp.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();const b=e.target.dataset.blk,i=+e.target.dataset.i;cur()[b].entries.splice(i+1,0,{t:"",done:false});saveDays();renderDay();focusEntry(b,i+1);}});
+  });
+  wrap.querySelectorAll(".echeck").forEach(btn=>{btn.addEventListener("click",()=>{const b=btn.dataset.blk,i=+btn.dataset.i;const en=cur()[b].entries[i];en.done=!en.done;btn.setAttribute("aria-checked",en.done);saveDays();renderProgress();});});
+  wrap.querySelectorAll(".erem").forEach(btn=>{btn.addEventListener("click",()=>{const b=btn.dataset.blk,i=+btn.dataset.i;const arr=cur()[b].entries;arr.splice(i,1);if(!arr.length)arr.push({t:"",done:false});saveDays();renderDay();renderProgress();});});
+}
+function renderProgress(){
+  const tk=todayKey();
+  let total=0;for(const k in days){if(dayDeep(days[k]))total++;}
+  $("total").textContent=total;
+  const doneOn=k=>days[k]&&dayDeep(days[k]);
+  let streak=0,probe=new Date(new Date().setHours(0,0,0,0));
+  if(!doneOn(fmtKey(probe)))probe.setDate(probe.getDate()-1);
+  while(doneOn(fmtKey(probe))){streak++;probe.setDate(probe.getDate()-1);}
+  $("streak").textContent=streak;
+  const now=new Date(new Date().setHours(0,0,0,0));
+  const monday=new Date(now);const off=(now.getDay()+6)%7;monday.setDate(now.getDate()-off);
+  let wk=0;for(let i=0;i<7;i++){const dd=new Date(monday);dd.setDate(monday.getDate()+i);if(doneOn(fmtKey(dd)))wk++;}
+  $("weekDeep").textContent=wk;
+  const strip=$("strip");strip.innerHTML="";let startLabel="";
+  for(let i=27;i>=0;i--){
+    const dd=new Date(now);dd.setDate(now.getDate()-i);const k=fmtKey(dd);const rec=days[k];
+    const c=document.createElement("div");c.className="cell";
+    if(rec){if(dayDeep(rec))c.classList.add("deep");else if(dayShown(rec))c.classList.add("shown");}
+    if(k===tk)c.classList.add("today");c.title=k;strip.appendChild(c);
+    if(i===27)startLabel=MON[dd.getMonth()]+" "+dd.getDate();
+  }
+  $("stripStart").textContent=startLabel;
+}
+function renderMilestones(){
+  const list=$("msList");list.innerHTML="";
+  if(!milestones.length){list.innerHTML='<div class="ms-empty">Nothing logged yet — add a real outcome the moment it lands.</div>';return;}
+  milestones.slice().reverse().forEach((m,ri)=>{
+    const idx=milestones.length-1-ri;
+    const li=document.createElement("li");li.className="ms-item";
+    const dd=new Date(m.date+"T00:00:00");
+    li.innerHTML='<span class="d">'+MON[dd.getMonth()]+" "+dd.getDate()+'</span><span class="t"></span><button class="x" aria-label="Remove">×</button>';
+    li.querySelector(".t").textContent=m.text;
+    li.querySelector(".x").addEventListener("click",()=>{if(confirm("Remove this win?")){milestones.splice(idx,1);saveMs();renderMilestones();}});
+    list.appendChild(li);
+  });
+}
+function addMilestone(){const v=$("msInput").value.trim();if(!v)return;milestones.push({date:todayKey(),text:v});$("msInput").value="";saveMs();renderMilestones();}
+
+/* ---------- events ---------- */
+function bind(){
+  $("qBirth").addEventListener("change",updateAge);
+  $("qBirth").addEventListener("input",updateAge);
+  $("composeBtn").addEventListener("click",composeWithAgent);
+  $("addHelp").addEventListener("click",()=>$("helpRows").appendChild(helpRow()));
+  $("addNap").addEventListener("click",()=>$("napRows").appendChild(napRow()));
+  $("evOn").addEventListener("click",()=>{$("evOn").setAttribute("aria-pressed","true");$("evOff").setAttribute("aria-pressed","false");$("evTimeRow").style.display="flex";});
+  $("evOff").addEventListener("click",()=>{$("evOn").setAttribute("aria-pressed","false");$("evOff").setAttribute("aria-pressed","true");$("evTimeRow").style.display="none";});
+  $("buildBtn").addEventListener("click",()=>{const a=collectAnswers();finishSetup(buildBlocks(a),a);});
+  $("skipBtn").addEventListener("click",()=>{finishSetup(DEFAULT_BLOCKS.slice(),null);});
+  $("loadJson").addEventListener("click",()=>{
+    const raw=$("pasteJson").value.trim();
+    $("pasteErr").textContent="";
+    if(!raw){$("pasteErr").textContent="Paste the composed JSON first.";return;}
+    try{applyComposedDay(raw);}
+    catch(e){$("pasteErr").textContent="Couldn’t read that: "+e.message;}
+  });
+  $("editSetup").addEventListener("click",()=>{renderConversation();});
+
+  // conversational onboarding
+  $("convoSend").addEventListener("click",convoSend);
+  $("convoText").addEventListener("keydown",e=>{
+    if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();convoSend();}
+  });
+  $("convoText").addEventListener("input",e=>{const t=e.target;t.style.height="auto";t.style.height=Math.min(t.scrollHeight,170)+"px";});
+  $("convoDate").addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();convoSend();}});
+  $("convoForm").addEventListener("click",()=>renderOnboard(setup&&setup.answers?setup.answers:null));
+  $("convoSkip").addEventListener("click",()=>finishSetup(DEFAULT_BLOCKS.slice(),null));
+
+  $("prev").addEventListener("click",()=>{cursor.setDate(cursor.getDate()-1);renderHeader();renderDay();});
+  $("next").addEventListener("click",()=>{const t=new Date(new Date().setHours(0,0,0,0));const diff=Math.round((cursor-t)/86400000);if(diff<MAX_AHEAD){cursor.setDate(cursor.getDate()+1);renderHeader();renderDay();}});
+  $("modeFull").addEventListener("click",()=>{cur().mode="full";renderDay();saveDays();renderProgress();});
+  $("modeMin").addEventListener("click",()=>{cur().mode="min";renderDay();saveDays();renderProgress();});
+  $("msAdd").addEventListener("click",addMilestone);
+  $("msInput").addEventListener("keydown",e=>{if(e.key==="Enter")addMilestone();});
+  $("reset").addEventListener("click",async()=>{
+    if(!confirm("Clear all days and wins? Your day shape is kept. This can’t be undone.")) return;
+    days={};milestones=[];
+    try{localStorage.removeItem(KEY_DAYS);localStorage.removeItem(KEY_MS);}catch(e){}
+    renderHeader();renderDay();renderProgress();renderMilestones();
+  });
+}
+
+(async()=>{
+  await load();
+  $("loading").style.display="none";
+  bind();
+  if(setup&&setup.blocks&&setup.blocks.length){
+    BLOCKS=setup.blocks;
+    $("main").style.display="block";
+    renderHeader();renderDay();renderProgress();renderMilestones();renderChanges();
+  }else{
+    renderConversation();
+  }
+})();
+</script>
+</body>
+</html>

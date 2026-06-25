@@ -28,9 +28,37 @@ from .instructions import SYSTEM_INSTRUCTION
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-# Gemini via Google AI Studio (free tier is enough — the agent fires only at onboarding /
-# restructure). Overridable so we don't hardcode a model that may rotate.
-MODEL = os.getenv("ADK_MODEL", "gemini-2.0-flash")
+# Model is env-switchable via ADK_MODEL. Gemini via Google AI Studio is the DEFAULT (and the
+# documented submission model). Models rotate: gemini-2.0-flash was RETIRED 2026-03-03, so the
+# current free-tier default is gemini-2.5-flash (or gemini-2.5-flash-lite). Check the live
+# free-tier list if this 429s with "limit: 0": https://ai.google.dev/gemini-api/docs/rate-limits
+#
+# To test on another provider (e.g. DeepSeek, to dodge Gemini's free-tier daily cap), set:
+#   ADK_MODEL=deepseek/deepseek-chat   and   DEEPSEEK_API_KEY=...   (plus: pip install litellm)
+# Any non-Gemini value is routed through ADK's LiteLlm wrapper (see resolve_model). Gemini values
+# pass straight through as ADK's native string path — no litellm needed for the default.
+MODEL = os.getenv("ADK_MODEL", "gemini-2.5-flash")
+
+
+def resolve_model():
+    """Return the `model` to hand LlmAgent.
+
+    Gemini model names pass through as a bare string (ADK's native Gemini path — no extra deps).
+    Any other provider (e.g. 'deepseek/deepseek-chat', 'openai/gpt-4o') is wrapped in ADK's
+    LiteLlm adapter, which needs `pip install litellm` and that provider's API key in the env
+    (DeepSeek reads DEEPSEEK_API_KEY). Switch purely via ADK_MODEL; Gemini stays the default.
+    """
+    if MODEL.startswith("gemini") or MODEL.startswith("models/gemini"):
+        return MODEL
+    try:
+        from google.adk.models.lite_llm import LiteLlm
+    except ImportError as e:
+        raise RuntimeError(
+            f"ADK_MODEL='{MODEL}' is a non-Gemini model, which needs LiteLlm. "
+            f"Run: pip install litellm  (and set the provider key, e.g. DEEPSEEK_API_KEY "
+            f"for deepseek/* models). Gemini models need none of this."
+        ) from e
+    return LiteLlm(model=MODEL)
 
 
 def build_mcp_toolset() -> McpToolset:
@@ -59,7 +87,7 @@ def build_agent() -> LlmAgent:
     """
     return LlmAgent(
         name="mom_day_organiser",
-        model=MODEL,
+        model=resolve_model(),
         instruction=SYSTEM_INSTRUCTION,
         tools=[build_mcp_toolset()],
     )

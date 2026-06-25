@@ -54,3 +54,24 @@ an infant-safety fence in agent/instructions.py (no choking/small-parts/mouthing
 the age, nothing beyond motor stage, supervised, framed as an idea not a must). Consequence:
 no play.json, no get_play_suggestions; the milestone data now feeds both the check-in and the
 game generation. Status: **play generated under a safety fence; milestone + nap stay curated.**
+
+## Onboarding persona — parent-wellbeing clinician, pediatric grounding for the baby
+The onboarding voice centres on the PARENT's wellbeing: warm, authoritative, attentive to how
+they're coping — if they signal overwhelm or illness, it offers a minimum day rather than a full
+one. That is the differentiator made audible (§2.5 "protective, not throughput-maximising").
+Anything about the BABY — naps, play ideas — stays pediatrically grounded: facts from the tools,
+age-appropriate play under the safety fence. So it's a clinician who looks after the parent, with
+a pediatrician's grounding for the child's routine — not a baby-tracker with a chat skin, and not
+a mental-health assessor of the parent. Lives in agent/instructions.py (protected; edit only after
+the conversational-onboarding plan is approved). Status: **parent-wellbeing voice + pediatric
+facts; see docs/PLAN-conversational-onboarding.md.**
+
+## Clarifying-question cap raised from one to 5–6
+The original rule (brief §4 + the compose-baby-day Skill) capped clarifying questions at ONE, to
+spare a depleted parent friction. The conversational onboarding is an interview — birth date, then
+free text, then targeted follow-ups — so one is too few. New cap: up to 5–6 follow-ups, asked one
+at a time, only for things that change the day, always skippable. The cap is a CEILING, not a
+target: the agent stops as soon as it has enough, and a one-line free-text answer must still yield
+a usable day without nagging (protective principle preserved). To apply: update the Skill's
+clarifying-question policy (one → max 5–6) and soften brief §4. Status: **max 5–6 questions; replaces
+the one-question rule; see docs/PLAN-conversational-onboarding.md.**

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 308 72" width="308" height="72" role="img" aria-label="Momosini">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&amp;display=swap');
+      .wm{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:600;font-size:44px;letter-spacing:-0.6px;}
+    </style>
+  </defs>
+  <!-- icon: coral circle over teal double-arch -->
+  <g transform="translate(6,4) scale(1.14)">
+    <circle cx="28" cy="13" r="6.5" fill="#FF7F5C"/>
+    <path d="M5 45 A11.5 11.5 0 0 1 28 45 A11.5 11.5 0 0 1 51 45" fill="none" stroke="#13806E" stroke-width="5.5" stroke-linecap="round"/>
+  </g>
+  <!-- wordmark: Fraunces, deep teal, with the accent o in coral -->
+  <text class="wm" x="84" y="51" fill="#0F6F60">Mom<tspan fill="#FF7F5C">o</tspan>sini</text>
+</svg>

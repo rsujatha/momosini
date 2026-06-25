@@ -1,0 +1,19 @@
+{
+  "note": "A clean composed day used to regression-test the blocks contract (test_blocks_contract.py).",
+  "blocks": [
+    { "id": "morning_nap", "label": "Morning nap", "kind": "nap",
+      "is_focus": false, "show_in_minimum_day": false,
+      "entries": ["Around this age many babies take 2 naps — timing varies day to day"] },
+    { "id": "focus", "label": "While grandma has baby", "kind": "focus",
+      "window": { "start": "14:00", "end": "16:00" },
+      "is_focus": true, "show_in_minimum_day": true,
+      "entries": ["Application — one polished paragraph"] },
+    { "id": "with_baby", "label": "With baby (after the morning nap)", "kind": "with_baby",
+      "is_focus": false, "show_in_minimum_day": false,
+      "entries": ["Lunch + tidy together", "Option: stacking-cups play"] },
+    { "id": "evening", "label": "Evening", "kind": "together",
+      "window": { "start": "18:00", "end": "19:30" },
+      "is_focus": false, "show_in_minimum_day": true,
+      "entries": ["Bath + bedtime routine"] }
+  ]
+}

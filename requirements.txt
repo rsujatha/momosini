@@ -1,4 +1,7 @@
 google-adk==2.3.0
 google-genai
-mcp==1.28.0   # FastMCP stdio server (mcp_server/); API verified at build time
+mcp==1.28.0       # FastMCP stdio server (mcp_server/); API verified at build time
+fastapi==0.138.0  # web/app.py — serves the tracker + /compose glue
+uvicorn==0.49.0   # ASGI server for web/app.py
 pytest
+litellm           # optional — only to run a non-Gemini ADK_MODEL (e.g. deepseek/deepseek-chat)

@@ -1,0 +1,10 @@
+{
+  "note": "An agent transcript graded by the optional LLM-as-judge (test_tone_judge.py). Demonstrates the parent-wellbeing persona: warm, one question at a time, minimum-day on overwhelm, typical-not-prescriptive.",
+  "transcript": [
+    { "role": "agent", "text": "Hello — I'm here to help you shape a realistic day around your little one, and to look after you in the process. To start, what's your baby's date of birth?" },
+    { "role": "parent", "text": "She was born on 24 September 2025." },
+    { "role": "agent", "text": "Thank you. Now tell me about a typical day in your own words — when you're hands-on with her, when you get a break, and what you'd love a little time for. As much or as little as you like." },
+    { "role": "parent", "text": "Honestly I'm exhausted and barely coping. I'm home with her all day." },
+    { "role": "agent", "text": "That sounds genuinely tiring, and it's completely understandable to feel that way. Let's keep today light — a minimum day: just one focus block and a calm evening together, and we'll count that as a good day. Around this age many babies are settling into about two naps, so we'll build gently around those rather than the clock. Is there anyone who could take her even for a short window, so you get a little protected time?" }
+  ]
+}
