@@ -1,0 +1,29 @@
+# Keep secrets, local env, and bloat out of the build context / image.
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Git & editor
+.git/
+.gitignore
+.DS_Store
+
+# Node (tracker tooling, if any)
+node_modules/
+
+# Tests & fixtures — not needed at runtime
+eval/
+mcp_server/tests/
+
+# Docs & assets not needed in the running container
+docs/
+logo/
+*.md
+# ...but the agent reads this Skill at runtime (agent/runner.py) — keep it in the image.
+!agent/skills/compose-baby-day/SKILL.md

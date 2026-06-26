@@ -1,9 +1,24 @@
 # Plan — conversational onboarding (interview, not a form)
 
-Status: **PROPOSED, not started.** Per START-HERE guardrail 2, this is scoped and waiting on
-Sujatha's review before any code changes. It also touches `agent/instructions.py` and the
-`compose-baby-day` Skill, both of which are protected (guardrail 1) — so the prompt/method
-changes below are *proposals*, called out explicitly, not edits made in this pass.
+Status: **ALL 5 STEPS COMPLETE** (committed in `d1a402d`, 2026-06-25). Implemented with Sujatha's
+approval, including the protected-file changes (`agent/instructions.py`, the `compose-baby-day`
+Skill) for the persona + 5–6-question interview. What shipped:
+
+1. **Multi-turn endpoint** — `start_conversation` / `send_message` in `agent/runner.py`,
+   `POST /converse` in `web/app.py`. ✓
+2. **Conversational UI** — one-question-at-a-time chat in `tracker/mom-day-tracker.html`
+   (transcript, typing state, birthday → free text → follow-ups → compose). ✓
+3. **Persona + interview policy** — parent-wellbeing clinician voice, pediatric grounding,
+   question cap one → 5–6, "ask one OR emit each turn". `instructions.py` + Skill + brief. ✓
+4. **Render guard** — `sanitizeWindows()` drops zero-length/duplicate time slots. ✓
+5. **Eval extended** — multi-turn facts-trace + detector, blocks-contract, opt-in tone judge. ✓
+
+Verified live on DeepSeek (the agent drove its own tool calls and composed a day) and offline
+(`pytest eval/` green, JS/flow checks pass). **Not yet done:** deploy, video, writeup, and the
+free-tier-vs-paid-Gemini call for submission. The original plan (current state, scope, decisions)
+follows below for reference.
+
+---
 
 ---
 

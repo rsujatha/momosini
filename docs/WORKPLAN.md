@@ -3,6 +3,31 @@
 Each chunk: what she'll learn · what it unblocks · rough timebox · your review checkpoint.
 Dependency order is also bottom-up build order, so the project assembles as she learns.
 
+## Status — as of 2026-06-25 (commit `d1a402d`)
+
+The base arcs (MCP server, agent↔MCP wiring, agent loop, eval harness) are in. On top of them, a
+**conversational-onboarding** stream is now complete — see `docs/PLAN-conversational-onboarding.md`
+for the full scope. Summary of what's built and committed:
+
+- **Conversational onboarding (replaces the static form).** One question at a time: birthday →
+  "tell me about your day" free text → agent-led follow-ups → composed day. UI in
+  `tracker/mom-day-tracker.html`; backend `POST /converse` (multi-turn, session-held) in
+  `web/app.py` + `agent/runner.py`.
+- **Persona + interview policy (protected files).** Parent-wellbeing clinician voice with pediatric
+  grounding; clarifying-question cap raised one → **5–6**, one at a time. In `agent/instructions.py`
+  + `agent/skills/compose-baby-day/SKILL.md`. Logged in `docs/DECISIONS.md`.
+- **Env-switchable model.** Gemini default; `ADK_MODEL=deepseek/deepseek-chat` routes via `LiteLlm`
+  (`resolve_model` in `agent/agent.py`). Verified live on DeepSeek.
+- **Deterministic render guard.** `sanitizeWindows()` in the tracker drops zero-length/duplicate
+  time slots.
+- **Eval extended.** Multi-turn facts-trace + hallucination-detector, blocks-contract checks, and an
+  opt-in LLM-as-judge tone test (`RUN_TONE_JUDGE=1`). `pytest eval/` = 4 passed, 1 skipped.
+
+**Open / not done:** still on free-tier vs paid-Gemini decision for submission; deployment (the
+`deploy/Dockerfile` is a skeleton — its CMD runs the self-check, not the web server, and it bakes
+`.env` in); video + writeup. A quick-share path (Render free tier + keep-alive ping) was discussed
+but not built. Protected-file diffs went in via the `d1a402d` auto-commit and are worth a review.
+
 ## Collaborator's arc (the agentic-AI learning path)
 
 ### 1. MCP server  (`mcp_server/`) — learn the tool layer

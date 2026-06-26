@@ -75,3 +75,17 @@ target: the agent stops as soon as it has enough, and a one-line free-text answe
 a usable day without nagging (protective principle preserved). To apply: update the Skill's
 clarifying-question policy (one → max 5–6) and soften brief §4. Status: **max 5–6 questions; replaces
 the one-question rule; see docs/PLAN-conversational-onboarding.md.**
+
+## Deployment target: Google Cloud Run (the course path)
+Chosen 2026-06-25. Cloud Run is the ADK course's reference path and reads well for the rubric's
+Deployability concept. One container holds the FastAPI/web layer, the ADK agent, and the bundled
+stdio MCP server (agent spawns it as a subprocess — fine inside a single Cloud Run container).
+**Known caveat (the one thing to get right):** the backend keeps sessions IN MEMORY, and Cloud Run
+is serverless — it scales to zero and can run multiple instances, either of which drops a live
+session. Mitigation for the demo: deploy with `--min-instances=1 --max-instances=1` (and session
+affinity) so one warm instance holds state for the duration of a demo. Not production-grade
+session handling — acceptable for judging, logged as future work (move sessions to a store).
+Secrets: `GOOGLE_API_KEY` goes in Secret Manager or `--set-env-vars` at deploy — NEVER baked into
+the image (the current `deploy/Dockerfile` bakes `.env` in and runs the self-check, not uvicorn;
+both must be fixed first). Status: **Cloud Run; single-instance for the demo; Dockerfile needs a
+rewrite before first deploy.**

@@ -8,9 +8,21 @@ touches, and it is intentionally *not* agentic — predictable beats clever for 
 
 ## 2. The agent (`agent/`) — the ONE agent
 The only place the model drives control flow. On onboarding or a nap-transition restructure
-it: reads the goal → decides which knowledge tools to call → observes results → asks one
-clarifying question if needed → composes the day's blocks. It loads the `compose-baby-day`
-Skill for the *method*; it gets *facts* only from tools.
+it: reads the goal → decides which knowledge tools to call → observes results → runs a short
+**interview** (one question at a time, up to 5–6 follow-ups, only when they change the day) →
+composes the day's blocks. It loads the `compose-baby-day` Skill for the *method*; it gets
+*facts* only from tools.
+
+**Persona:** the voice is a warm, authoritative clinician centred on the **parent's** wellbeing
+(offers a *minimum day* when the parent sounds overwhelmed/unwell), while everything about the
+**baby** stays pediatrically grounded in tool facts. Lives in `agent/instructions.py`; the 5–6
+question cap and the "ask one question OR emit the day each turn" rule live there + in the Skill.
+
+**Model is env-switchable (`ADK_MODEL`).** Gemini is the default and the documented submission
+model (a bare model string → ADK's native Gemini path). Any non-Gemini value (e.g.
+`deepseek/deepseek-chat`) is routed through ADK's `LiteLlm` wrapper by `resolve_model()` in
+`agent/agent.py` — used for dev when Gemini's free-tier daily cap gets in the way. Switching is a
+one-line `.env` change; no code edit.
 
 **Litmus (why it's an agent):** the model chooses the tool calls and loops toward a goal.
 If we had written the exact call sequence by hand, it would be a pipeline, not an agent.
@@ -24,12 +36,27 @@ Verifies a property ("every developmental fact in the output traces to a tool re
 Deterministic on purpose — a model-based checker would reintroduce the non-determinism we
 built it to catch. Soft qualities (tone) may optionally use LLM-as-judge; still not an agent.
 
+## The web seam (`web/app.py`) — local glue, two endpoints
+The FastAPI app serves the tracker at `/` and exposes the agent:
+- **`POST /converse`** — the conversational onboarding. One turn at a time; returns either the
+  agent's next question (`done:false`) or the composed day (`done:true`). It holds a long-lived
+  in-memory ADK session keyed by `session_id`, so the interview carries context across turns
+  (`start_conversation` / `send_message` in `agent/runner.py`). This statefulness is why the
+  backend needs a persistent container host, not serverless (see `deploy/`).
+- **`POST /compose`** — the original one-shot path (all fields at once); still supported.
+
+Transient Gemini errors (503 overload / 429) self-heal via exponential backoff that also honors
+the server's suggested retry delay (`_backoff_sleep` in `runner.py`).
+
 ## Data flow
 ```
-free text / question
-   └─▶ agent (LlmAgent) ──McpToolset(stdio)──▶ mcp_server ──reads──▶ knowledge/*.json
-        └─ composes blocks JSON ──▶ tracker renders
+parent's day (free text)  ─POST /converse─▶ agent (LlmAgent) ──McpToolset(stdio)──▶ mcp_server ──reads──▶ knowledge/*.json
+   one question at a time  ◀── interview ──┘   └─ composes blocks JSON ──▶ tracker renders (sanitizeWindows guards the contract)
 ```
+
+The tracker's `applyComposedDay` runs `sanitizeWindows()` before rendering — a deterministic guard
+that drops zero-length and duplicate time slots no matter what the model emits, so two blocks can
+never share a clock slot.
 
 ## The contract (the seam between owners)
 The interface that lets parallel work happen without constant coordination:
