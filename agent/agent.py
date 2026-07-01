@@ -24,31 +24,71 @@ from google.adk.agents import LlmAgent
 from google.adk.tools.mcp_tool import McpToolset, StdioConnectionParams
 from mcp import StdioServerParameters
 
+from dotenv import load_dotenv  # ships with google-adk
+
 from .instructions import SYSTEM_INSTRUCTION
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
-# Model is env-switchable via ADK_MODEL. Gemini via Google AI Studio is the DEFAULT (and the
-# documented submission model). Models rotate: gemini-2.0-flash was RETIRED 2026-03-03, so the
-# current free-tier default is gemini-2.5-flash (or gemini-2.5-flash-lite). Check the live
-# free-tier list if this 429s with "limit: 0": https://ai.google.dev/gemini-api/docs/rate-limits
+# Load .env here (not only in runner.py) so MODEL/backend selection is correct no matter how the
+# agent is entered — the `python -m agent.agent` self-check, the web app, or the eval harness.
+# Must run BEFORE MODEL is read below.
+load_dotenv(REPO_ROOT / ".env")
+
+# Model is env-switchable via ADK_MODEL. Default: gemini-3.5-flash (GA on Vertex as of May 2026;
+# chosen over 2.5-flash for more imaginative play-activity generation). Models rotate fast —
+# gemini-2.0-flash retired 2026-06-01, gemini-2.5-flash retires 2026-10-16 — so keep this an env
+# var, never hardcode a model deeper in. Check live model ids/regions if a call 404s on the model:
+# https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
 #
-# To test on another provider (e.g. DeepSeek, to dodge Gemini's free-tier daily cap), set:
-#   ADK_MODEL=deepseek/deepseek-chat   and   DEEPSEEK_API_KEY=...   (plus: pip install litellm)
-# Any non-Gemini value is routed through ADK's LiteLlm wrapper (see resolve_model). Gemini values
-# pass straight through as ADK's native string path — no litellm needed for the default.
-MODEL = os.getenv("ADK_MODEL", "gemini-2.5-flash")
+# Backends (resolve_model): Gemini names pass through as ADK's native string path (AI Studio or
+# Vertex, per GOOGLE_GENAI_USE_VERTEXAI); any non-Gemini value (e.g. deepseek/deepseek-chat) is
+# routed through ADK's LiteLlm wrapper and needs that provider's key (DEEPSEEK_API_KEY) + litellm.
+MODEL = os.getenv("ADK_MODEL", "gemini-3.5-flash")
+
+
+def _is_gemini(name: str) -> bool:
+    return name.startswith("gemini") or name.startswith("models/gemini")
+
+
+def _use_vertex() -> bool:
+    """True when Gemini calls should route to Vertex AI (Cloud-billed, free-trial-credit-eligible)
+    instead of AI Studio. google-genai reads GOOGLE_GENAI_USE_VERTEXAI itself; we mirror it here
+    only to validate config and to label the active backend."""
+    return os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "").strip().lower() in ("1", "true", "yes")
+
+
+def active_backend() -> str:
+    """One-line label of the backend the current env selects — for the self-check and logs."""
+    if not _is_gemini(MODEL):
+        return f"{MODEL} (LiteLlm)"
+    route = "Vertex AI (ADC · uses Cloud credits)" if _use_vertex() else "AI Studio (GOOGLE_API_KEY)"
+    return f"{MODEL} · {route}"
 
 
 def resolve_model():
-    """Return the `model` to hand LlmAgent.
+    """Return the `model` to hand LlmAgent. Switch backends purely via ENV — no code change:
 
-    Gemini model names pass through as a bare string (ADK's native Gemini path — no extra deps).
-    Any other provider (e.g. 'deepseek/deepseek-chat', 'openai/gpt-4o') is wrapped in ADK's
-    LiteLlm adapter, which needs `pip install litellm` and that provider's API key in the env
-    (DeepSeek reads DEEPSEEK_API_KEY). Switch purely via ADK_MODEL; Gemini stays the default.
+        DeepSeek          ADK_MODEL=deepseek/deepseek-chat  + DEEPSEEK_API_KEY
+        Gemini · AIStudio ADK_MODEL=gemini-2.5-flash        + GOOGLE_API_KEY
+        Gemini · Vertex   ADK_MODEL=gemini-2.5-flash        + GOOGLE_GENAI_USE_VERTEXAI=TRUE
+                          + GOOGLE_CLOUD_PROJECT + GOOGLE_CLOUD_LOCATION + ADC (no API key)
+
+    Gemini names pass through as a bare string; google-genai picks Vertex vs AI Studio from
+    GOOGLE_GENAI_USE_VERTEXAI. Non-Gemini names are wrapped in ADK's LiteLlm adapter (needs
+    `pip install litellm` + that provider's key, e.g. DEEPSEEK_API_KEY).
     """
-    if MODEL.startswith("gemini") or MODEL.startswith("models/gemini"):
+    if _is_gemini(MODEL):
+        if _use_vertex():
+            missing = [v for v in ("GOOGLE_CLOUD_PROJECT", "GOOGLE_CLOUD_LOCATION")
+                       if not os.getenv(v)]
+            if missing:
+                raise RuntimeError(
+                    "Vertex backend selected (GOOGLE_GENAI_USE_VERTEXAI=TRUE) but missing "
+                    f"{', '.join(missing)}. Set them (e.g. GOOGLE_CLOUD_LOCATION=us-central1) and "
+                    "authenticate ADC: `gcloud auth application-default login` locally, or the "
+                    "Cloud Run service account in deployment."
+                )
         return MODEL
     try:
         from google.adk.models.lite_llm import LiteLlm
@@ -114,7 +154,16 @@ if __name__ == "__main__":
     print("Agent sees MCP tools:", names)
 
     agent = build_agent()
-    print(f"Built LlmAgent '{agent.name}' on model '{MODEL}' with {len(agent.tools)} toolset(s).")
+    print(f"Built LlmAgent '{agent.name}' on backend: {active_backend()} "
+          f"— {len(agent.tools)} toolset(s).")
 
-    if not os.getenv("GOOGLE_API_KEY"):
+    # Backend-aware credential hint (only the selected backend's key/auth matters).
+    if not _is_gemini(MODEL):
+        provider = MODEL.split("/", 1)[0].upper()
+        if not os.getenv(f"{provider}_API_KEY"):
+            print(f"\nNote: set {provider}_API_KEY to run the model-driven loop (see .env.example).")
+    elif _use_vertex():
+        print("\nNote: Vertex backend — ensure ADC is set "
+              "(`gcloud auth application-default login`) to run the loop.")
+    elif not os.getenv("GOOGLE_API_KEY"):
         print("\nNote: set GOOGLE_API_KEY (see .env.example) to run the model-driven loop — arc 3.")

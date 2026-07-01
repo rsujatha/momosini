@@ -28,6 +28,7 @@ from agent.runner import (
     send_message,
     start_conversation,
 )
+from agent.agent import MODEL  # active model id — surfaced to the UI for transparency
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 TRACKER_HTML = REPO_ROOT / "tracker" / "mom-day-tracker.html"
@@ -66,9 +67,28 @@ def _quota_hint(msg: str) -> str:
     return ""
 
 
+_MODEL_DISPLAY_NAMES = {
+    "gemini-3.5-flash": "Gemini 3.5 Flash",
+    "gemini-2.5-flash": "Gemini 2.5 Flash",
+    "gemini-2.5-flash-lite": "Gemini 2.5 Flash-Lite",
+    "gemini-2.5-pro": "Gemini 2.5 Pro",
+    "deepseek/deepseek-chat": "DeepSeek",
+}
+
+
+def _model_display() -> str:
+    return _MODEL_DISPLAY_NAMES.get(MODEL, MODEL)
+
+
 @app.get("/", response_class=HTMLResponse)
 def index() -> HTMLResponse:
     return HTMLResponse(TRACKER_HTML.read_text(encoding="utf-8"))
+
+
+@app.get("/model")
+def model_info() -> JSONResponse:
+    """Expose the active model so the UI can show which LLM powers the agent (transparency)."""
+    return JSONResponse({"model": MODEL, "display": _model_display()})
 
 
 @app.post("/compose")

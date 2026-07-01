@@ -16,7 +16,7 @@
     --bg-ink:#f3f8f6; --bg-muted:#a8c6bf; --bg-faint:#79a89f;   /* text directly on the deep-teal canvas */
     --line:#ece5d9; --line-strong:#d9d2c6;
     --signal:#df7553; --signal-ink:#c25e45; --signal-bg:#f6e7df; --signal-line:#ecc6b6;  /* Clay coral — focus */
-    --spark:#ff7f5c;                                                                       /* bright Coral Sun — reserved for tiny accents */
+    --spark:#df7553;                                                                       /* Clay coral — unified brand accent */
     --teal:#13806e; --teal-d:#0f6f60; --teal-bg:#e2f0ec;                                   /* Teal Hills / Deep Teal — together */
     --accent:#13806e; --accent-d:#0f6f60;                                                 /* primary actions */
     --radius:16px;
@@ -33,10 +33,11 @@
 
   /* brand lockup — reversed on a teal band */
   .brand{margin:0 0 20px}
-  .brandbar{margin:0 0 16px}
+  .brandbar{margin:0 0 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
   .brandband{display:inline-flex;align-items:center}
   .brandband .lockup{display:block;height:42px;width:auto}
   .brandbar .brandband .lockup{height:28px}
+  #babyAgeBar{font-size:12.5px;color:var(--muted);font-style:italic;white-space:nowrap;opacity:.85}
   .tagline{display:block;font-family:var(--sans);font-size:13.5px;color:var(--muted);margin-top:10px}
 
   /* onboarding */
@@ -202,6 +203,21 @@
   .block,.stat{border-radius:16px}
   .today-pill,.premium-flag,.together-flag,.nap-flag{font-weight:800}
 
+  /* model transparency badge in the onboarding chat */
+  .convo-model{display:flex;align-items:center;gap:6px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--faint);letter-spacing:.03em}
+  .convo-model .dot{width:6px;height:6px;border-radius:50%;background:var(--teal);display:inline-block}
+
+  /* desktop: widen the tracker and put the day timeline beside the insights */
+  .main-grid{display:block}
+  @media (min-width:900px){
+    .wrap{max-width:1040px}
+    .main-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;align-items:start}
+    .col-day{min-width:0}
+    .col-side{min-width:0}
+    .onboard,.convo{max-width:600px}
+    .blocks{margin-bottom:0}
+  }
+
   @media (max-width:480px){.strip{grid-template-columns:repeat(14,1fr)}.dateblock h1{font-size:19px}}
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -220,6 +236,7 @@
       <textarea id="convoText" rows="1" placeholder="Type your reply…"></textarea>
       <button class="convo-send" id="convoSend" aria-label="Send" title="Send">→</button>
     </div>
+    <div class="convo-model" id="convoModel" hidden></div>
     <div class="convo-foot">
       <button id="convoForm">Fill in a form instead</button>
       <button id="convoSkip">Skip — use a standard layout</button>
@@ -228,7 +245,7 @@
 
   <!-- ONBOARDING -->
   <div class="onboard" id="onboard" style="display:none">
-    <div class="brand"><span class="brandband"><svg class="lockup" viewBox="0 0 308 72" role="img" aria-label="Momosini"><g transform="translate(6,4) scale(1.14)"><circle cx="28" cy="13" r="6.5" fill="#FF7F5C"/><path d="M5 45 A11.5 11.5 0 0 1 28 45 A11.5 11.5 0 0 1 51 45" fill="none" stroke="#13806E" stroke-width="5.5" stroke-linecap="round"/></g><text x="84" y="51" fill="#0F6F60" style="font-family:&apos;Fraunces&apos;,Georgia,serif;font-weight:600;font-size:44px;letter-spacing:-0.6px">Mom<tspan fill="#FF7F5C">o</tspan>sini</text></svg></span><span class="tagline">AI that plans the day around your baby</span></div>
+    <div class="brand"><span class="brandband"><svg class="lockup" viewBox="0 0 308 72" role="img" aria-label="Momosini"><g transform="translate(6,4) scale(1.14)"><circle cx="28" cy="13" r="6.5" fill="#DF7553"/><path d="M5 45 A11.5 11.5 0 0 1 28 45 A11.5 11.5 0 0 1 51 45" fill="none" stroke="#13806E" stroke-width="5.5" stroke-linecap="round"/></g><text x="84" y="51" fill="#0F6F60" style="font-family:&apos;Fraunces&apos;,Georgia,serif;font-weight:600;font-size:44px;letter-spacing:-0.6px">Mom<tspan fill="#DF7553">o</tspan>sini</text></svg></span><span class="tagline">An AI-powered day planner for navigating early parenthood, built around your baby's routine.</span></div>
     <p class="lead">Let’s shape this</p>
     <p class="sub">A few quick questions, then your organiser is built from your baby’s routine and the help you have. You can change any of it later.</p>
 
@@ -299,7 +316,7 @@
 
   <!-- TRACKER -->
   <div id="main" style="display:none">
-    <div class="brandbar"><span class="brandband"><svg class="lockup" viewBox="0 0 308 72" role="img" aria-label="Momosini"><g transform="translate(6,4) scale(1.14)"><circle cx="28" cy="13" r="6.5" fill="#FF7F5C"/><path d="M5 45 A11.5 11.5 0 0 1 28 45 A11.5 11.5 0 0 1 51 45" fill="none" stroke="#13806E" stroke-width="5.5" stroke-linecap="round"/></g><text x="84" y="51" fill="#0F6F60" style="font-family:&apos;Fraunces&apos;,Georgia,serif;font-weight:600;font-size:44px;letter-spacing:-0.6px">Mom<tspan fill="#FF7F5C">o</tspan>sini</text></svg></span></div>
+    <div class="brandbar"><span class="brandband"><svg class="lockup" viewBox="0 0 308 72" role="img" aria-label="Momosini"><g transform="translate(6,4) scale(1.14)"><circle cx="28" cy="13" r="6.5" fill="#DF7553"/><path d="M5 45 A11.5 11.5 0 0 1 28 45 A11.5 11.5 0 0 1 51 45" fill="none" stroke="#13806E" stroke-width="5.5" stroke-linecap="round"/></g><text x="84" y="51" fill="#0F6F60" style="font-family:&apos;Fraunces&apos;,Georgia,serif;font-weight:600;font-size:44px;letter-spacing:-0.6px">Mom<tspan fill="#DF7553">o</tspan>sini</text></svg></span><span id="babyAgeBar"></span></div>
     <header>
       <div class="datenav">
         <button class="nav" id="prev" aria-label="Previous day">‹</button>
@@ -310,7 +327,7 @@
         <button class="nav" id="next" aria-label="Next day">›</button>
       </div>
       <div class="hctrl">
-        <button class="gear" id="editSetup" title="Edit your day shape">day shape</button>
+        <button class="gear" id="editSetup" title="Edit your day shape">Ask Sini</button>
         <div class="mode" role="group" aria-label="Day mode">
           <button id="modeFull" aria-pressed="true">Full day</button>
           <button id="modeMin" aria-pressed="false">Minimum day</button>
@@ -320,13 +337,17 @@
 
     <div class="changes-note" id="changesNote" style="display:none"></div>
     <div class="min-note" id="minNote">Minimum day — just the focus block. Doing the one focused thing is a full success; everything else is bonus.</div>
-    <div class="blocks" id="blocks"></div>
-    <div class="saved" id="saved"></div>
+    <div class="main-grid">
+      <div class="col-day">
+        <div class="blocks" id="blocks"></div>
+        <div class="saved" id="saved"></div>
+      </div>
+      <div class="col-side">
 
     <section class="log">
       <h2><span class="eyebrow">Progress</span> Observation log</h2>
       <div class="stats">
-        <div class="stat"><div class="n gold" id="streak">0</div><div class="l">day focus streak</div></div>
+        <div class="stat"><div class="n gold" id="streak">0</div><div class="l">day streak</div></div>
         <div class="stat"><div class="n" id="weekDeep">0</div><div class="l">focus days this week</div></div>
         <div class="stat"><div class="n" id="total">0</div><div class="l">focus days logged</div></div>
       </div>
@@ -353,6 +374,8 @@
         <button class="reset" id="reset">Clear all</button>
       </div>
     </section>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -500,12 +523,13 @@ function sanitizeWindows(arr){
 }
 function seedDayFromBlocks(blocks){
   const k=fmtKey(cursor);
-  const day={mode:"full"};
-  blocks.forEach(b=>{
+  const shape=blocks.map(mapAgentBlock);          // map ONCE so entry ids match the snapshot
+  const day={mode:"full",__shape:shape};          // remember this day's shape for history
+  blocks.forEach((b,idx)=>{
     const ents=(Array.isArray(b.entries)&&b.entries.length)
       ? b.entries.map(t=>({t:String(t),done:false}))
       : [{t:"",done:false}];
-    day[mapAgentBlock(b).id]={entries:ents};
+    day[shape[idx].id]={entries:ents};
   });
   days[k]=day;
 }
@@ -576,6 +600,16 @@ function renderConversation(){
   $("convo").style.display="block"; $("onboard").style.display="none"; $("main").style.display="none";
   convoAddMsg("Hello — I’m Sini. I’m here to help you shape a realistic day around your little one and look after you in the process. To start, what’s your baby’s date of birth?","bot");
   convoSetInput("date");
+  // Transparency: show which LLM powers the agent (fetched from the backend /model).
+  fetch("/model").then(r=>r.json()).then(d=>{
+    const el=$("convoModel"); if(!el)return;
+    const name=(d&&(d.display||d.model))||"";
+    if(!name)return;
+    el.textContent="";
+    const dot=document.createElement("span");dot.className="dot";el.appendChild(dot);
+    el.appendChild(document.createTextNode("Powered by "+name));
+    el.hidden=false;
+  }).catch(()=>{});
 }
 
 async function convoSend(){
@@ -613,7 +647,13 @@ async function convoSend(){
     if(data.done && data.composed){
       const used=(data.tool_calls&&data.tool_calls.length)?("checked "+[...new Set(data.tool_calls)].map(prettyTool).join(" + ")):"";
       convoAddMsg("That’s everything I need — here’s your day. You can edit anything.","bot",used);
-      setTimeout(()=>applyComposedDay(data.composed,{birthDate:convo.birthDate,dayDescription:convo.firstText,source:"conversation"}),450);
+      // Warm, hardcoded hand-off (not the LLM) so the planner doesn't appear abruptly.
+      convoTyping(true);
+      setTimeout(()=>{
+        convoTyping(false);
+        convoAddMsg("Taking you to your schedule — curated especially for you.","bot");
+        setTimeout(()=>applyComposedDay(data.composed,{birthDate:convo.birthDate,dayDescription:convo.firstText,source:"conversation"}),1200);
+      },750);
       return;
     }
     // a follow-up question
@@ -639,19 +679,23 @@ function entryShape(b){
   b.entries=b.entries.map(en=>({t:en&&en.t!==undefined?en.t:"",done:!!(en&&en.done)}));
   return b;
 }
-function blankDay(){const d={mode:"full"};BLOCKS.forEach(b=>d[b.id]=blockInit());return d;}
+function snapshotShape(arr){return (arr||[]).map(b=>({id:b.id,name:b.name,purpose:b.purpose||"",time:b.time||"",focus:!!b.focus,together:!!b.together,nap:!!b.nap,minDay:!!b.minDay}));}
+function dayShape(rec){return (rec&&Array.isArray(rec.__shape)&&rec.__shape.length)?rec.__shape:BLOCKS;}
+function blankDay(){const d={mode:"full",__shape:snapshotShape(BLOCKS)};BLOCKS.forEach(b=>d[b.id]=blockInit());return d;}
 function normalizeDay(d){
   if(!d)return blankDay();
   d.mode=(d.mode==="min")?"min":"full";
-  BLOCKS.forEach(b=>{d[b.id]=entryShape(d[b.id]);});
-  for(const k in d){if(k!=="mode"&&!BLOCKS.some(b=>b.id===k))d[k]=entryShape(d[k]);}
+  const shp=dayShape(d);
+  shp.forEach(b=>{d[b.id]=entryShape(d[b.id]);});
+  for(const k in d){if(k!=="mode"&&k!=="__shape"&&!shp.some(b=>b.id===k))d[k]=entryShape(d[k]);}
   return d;
 }
 function cur(){const k=fmtKey(cursor);if(!days[k])days[k]=blankDay();return normalizeDay(days[k]);}
 function blkDone(blk){return !!(blk&&blk.entries&&blk.entries.some(e=>e.done));}
-function focusId(){const f=BLOCKS.find(b=>b.focus);return f?f.id:"premium";}
-function dayDeep(rec){if(!rec)return false;normalizeDay(rec);return blkDone(rec[focusId()]);}
-function dayShown(rec){if(!rec)return false;normalizeDay(rec);const fid=focusId();for(const k in rec){if(k!=="mode"&&k!==fid&&blkDone(rec[k]))return true;}return false;}
+function focusId(shp){const s=shp||BLOCKS;const f=s.find(b=>b.focus);return f?f.id:"premium";}
+function dayDeep(rec){if(!rec)return false;normalizeDay(rec);return blkDone(rec[focusId(dayShape(rec))]);}
+function dayShown(rec){if(!rec)return false;normalizeDay(rec);const fid=focusId(dayShape(rec));for(const k in rec){if(k!=="mode"&&k!=="__shape"&&k!==fid&&blkDone(rec[k]))return true;}return false;}
+function dayActive(rec){if(!rec)return false;normalizeDay(rec);for(const k in rec){if(k!=="mode"&&k!=="__shape"&&blkDone(rec[k]))return true;}return false;}
 function esc(s){return (s||"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");}
 
 /* ---------- storage (browser localStorage) ---------- */
@@ -770,6 +814,9 @@ function renderHeader(){
   else if(diff>1){pill.textContent="in "+diff+" days";pill.className="today-pill ahead";pill.style.display="inline-block";}
   else{pill.style.display="none";}
   $("next").style.visibility=(diff>=MAX_AHEAD)?"hidden":"visible";
+  const bd=setup&&setup.answers&&setup.answers.birthDate;
+  const ageEl=$("babyAgeBar");
+  if(ageEl){const m=ageMonths(bd);ageEl.textContent=m!=null?"your baby is now "+ageLabel(m):"";}
 }
 function focusEntry(b,i){const el=document.querySelector('.eline[data-blk="'+b+'"][data-i="'+i+'"]');if(el){el.focus();const v=el.value;el.value="";el.value=v;}}
 function renderDay(){
@@ -778,7 +825,8 @@ function renderDay(){
   $("modeMin").setAttribute("aria-pressed",d.mode==="min");
   document.body.classList.toggle("min-mode",d.mode==="min");
   const wrap=$("blocks");wrap.innerHTML="";
-  const visible=d.mode==="min"?BLOCKS.filter(b=>b.focus||b.together||b.minDay):BLOCKS;
+  const SHAPE=dayShape(d);
+  const visible=d.mode==="min"?SHAPE.filter(b=>b.focus||b.together||b.minDay):SHAPE;
   visible.forEach(b=>{
     const bd=d[b.id];
     const rows=bd.entries.map((en,i)=>(
@@ -786,7 +834,7 @@ function renderDay(){
         '<button class="echeck" data-blk="'+b.id+'" data-i="'+i+'" role="checkbox" aria-checked="'+en.done+'" aria-label="Done">'+
           '<svg viewBox="0 0 24 24"><polyline points="5 12 10 17 19 7"></polyline></svg>'+
         '</button>'+
-        '<input class="eline" data-blk="'+b.id+'" data-i="'+i+'" placeholder="'+(i===0?'what’s in this block today':'another item')+'" value="'+esc(en.t)+'">'+
+        '<input class="eline" data-blk="'+b.id+'" data-i="'+i+'" placeholder="'+(i===0?'what’s in this block today':'add another item')+'" value="'+esc(en.t)+'">'+
         (bd.entries.length>1?'<button class="erem" data-blk="'+b.id+'" data-i="'+i+'" aria-label="Remove">×</button>':'')+
       '</div>'
     )).join("");
@@ -814,9 +862,10 @@ function renderProgress(){
   let total=0;for(const k in days){if(dayDeep(days[k]))total++;}
   $("total").textContent=total;
   const doneOn=k=>days[k]&&dayDeep(days[k]);
+  const activeOn=k=>days[k]&&dayActive(days[k]);   // streak now counts any completed task
   let streak=0,probe=new Date(new Date().setHours(0,0,0,0));
-  if(!doneOn(fmtKey(probe)))probe.setDate(probe.getDate()-1);
-  while(doneOn(fmtKey(probe))){streak++;probe.setDate(probe.getDate()-1);}
+  if(!activeOn(fmtKey(probe)))probe.setDate(probe.getDate()-1);
+  while(activeOn(fmtKey(probe))){streak++;probe.setDate(probe.getDate()-1);}
   $("streak").textContent=streak;
   const now=new Date(new Date().setHours(0,0,0,0));
   const monday=new Date(now);const off=(now.getDay()+6)%7;monday.setDate(now.getDate()-off);
