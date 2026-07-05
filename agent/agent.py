@@ -41,9 +41,11 @@ load_dotenv(REPO_ROOT / ".env")
 # var, never hardcode a model deeper in. Check live model ids/regions if a call 404s on the model:
 # https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/model-versions
 #
-# Backends (resolve_model): Gemini names pass through as ADK's native string path (AI Studio or
-# Vertex, per GOOGLE_GENAI_USE_VERTEXAI); any non-Gemini value (e.g. deepseek/deepseek-chat) is
+# Backends (resolve_model): any non-Gemini value (e.g. deepseek/deepseek-chat) is
 # routed through ADK's LiteLlm wrapper and needs that provider's key (DEEPSEEK_API_KEY) + litellm.
+# Gemini names pass through as ADK's native string path (AI Studio or
+# Vertex, per GOOGLE_GENAI_USE_VERTEXAI); 
+
 MODEL = os.getenv("ADK_MODEL", "gemini-3.5-flash")
 
 
