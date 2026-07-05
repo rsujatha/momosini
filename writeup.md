@@ -1,4 +1,4 @@
-# Mom Day-Organiser: A Privacy-First Concierge Agent for New Parents
+# Momosini: A Privacy-First Concierge Agent for New Parents
 
 **Track:** Concierge Agents
 **Submitting Team:** suja-capstone (Sujatha)
@@ -8,9 +8,9 @@
 ---
 
 ## Executive Summary
-**Mom Day-Organiser** is a privacy-first concierge agent built to solve a unique personal/family challenge: structuring the daily lives of new parents around the developmental stages of their babies. Traditional calendars and productivity planners optimize for *throughput* and assume the user owns and controls their own schedule. For new parents, this assumption is structurally incorrect. A parent’s available time is defined by caregiving windows, nap sequences, and childcare handoffs. 
+**Momosini** is a privacy-first concierge agent that structures a new parent's day around their baby's developmental stage. Traditional planners optimize for *throughput* and assume you control your own schedule. For new parents that assumption is structurally wrong: their available time is defined by caregiving windows, nap sequences, and childcare handoffs.
 
-By separating the user interface (a deterministic tracker) from the reasoning engine (a Google ADK agent) and grounding pediatric knowledge in a local Model Context Protocol (MCP) server, Mom Day-Organiser provides a protective, dynamic schedule. It guides the parent through a warm, clinician-like conversational onboarding, automatically restructures the day when babies hit developmental transitions (like dropping a nap), and generates age-appropriate play ideas—all while keeping personal data strictly local on the parent's device.
+By separating the interface (a deterministic tracker) from the reasoning engine (a Google ADK agent) and grounding pediatric knowledge in a local Model Context Protocol (MCP) server, it delivers a protective, dynamic schedule: warm conversational onboarding, automatic restructuring when the baby hits a developmental transition (like dropping a nap), and age-appropriate play ideas.
 
 ---
 
@@ -21,19 +21,24 @@ New parents operate under depleted cognitive load, sleep deprivation, and a dail
 Furthermore, a baby's routine is highly dynamic; sleep windows and developmental milestones shift rapidly between 0 and 24 months. Traditional systems are static, requiring manual recalibration of schedules, while commercial baby trackers focus on logging past events rather than planning the day ahead.
 
 ### The Solution
-Mom Day-Organiser shifts the scheduling paradigm. It organizes around the time the parent *doesn't* control—the baby's sleep and developmental needs—and adjusts as the baby grows. 
+Momosini shifts the scheduling paradigm. It organizes around the time the parent *doesn't* control—the baby's sleep and developmental needs—and adjusts as the baby grows. 
 
 ```
 A generic planner helps you spend the time you control; this one organises around the time you don't — your baby's — and changes as your baby does.
 ```
 
-### Why Agents?
-A static scheduling app cannot reason about unstructured text, nor can it dynamically adjust schedules based on complex developmental transitions. An LLM agent, however, can act as a goal-directed orchestrator. When a parent inputs their day in plain text (e.g., *"I'm exhausted, my mother is coming from 10 to 1, and I need to polish one paragraph of my proposal"*), the agent:
-1. Translates unstructured inputs into structural constraints.
-2. Invokes deterministic knowledge tools to retrieve age-specific sleep windows and milestones.
-3. Conducts a gentle, multi-turn interview to fill critical structural gaps without causing cognitive fatigue.
-4. Synthesizes these variables into a cohesive, relative-time day plan.
-5. Proactively restructures the day as developmental shifts occur.
+### Why Agents (and Not Just a Chatbot)?
+A plain LLM chatbot could *hold* this conversation—it could read a parent's free-text description and reply warmly. So the interesting question is not "why not an app," but "why an agent rather than a chatbot." Two things this problem demands are exactly the things a chatbot cannot safely do.
+
+First, a chatbot would **generate** developmental facts from its training data: nap windows, wake times, milestone ages. These are precisely the numbers a sleep-deprived parent must be able to trust, and precisely where an LLM is most likely to hallucinate. Second, a chatbot only emits text; it has no dependable way to decide when it has gathered enough, when to look something up, or how to return a structured plan the interface can render.
+
+An agent closes both gaps through **agency**—the capacity to reason, act, and decide in a loop rather than simply respond. When a parent types *"I'm exhausted, my mother is coming from 10 to 1, and I need to polish one paragraph of my proposal,"* the agent:
+1. **Grounds facts through action, instead of generating them.** Rather than inventing sleep ranges, it *decides* to call deterministic knowledge tools (our MCP server) and uses only what they return—so every developmental number traces back to a cited source.
+2. **Drives its own control flow.** It chooses which tools to call and when, judges whether the day's structure is complete, asks a gentle follow-up only if a real gap remains, and then stops on its own.
+3. **Acts, rather than only answering.** It composes a structured, relative-time day plan the tracker renders, and proactively restructures the day as the baby hits developmental transitions.
+4. **Improves with history, instead of starting over.** Because the parent's schedule, tasks, and the baby's birthday are already tracked on-device, the agent has a growing record to reason over. A stateless chatbot treats every turn as new; an agent can use that history as context—recognising that this baby dropped a nap early, or that mornings are the parent's only focus window—so each day's plan can evolve from the last rather than resetting. Personalization compounds precisely because an agent reasons over accumulated state, not a single prompt.
+
+In short: a chatbot answers questions; this agent reasons about the parent's day, uses tools to stay factually grounded, and acts by composing a safe, structured plan.
 
 ---
 
@@ -95,7 +100,7 @@ To separate the agent's core identity and rules from its procedural capabilities
 
 ## 3. Implementation Details: The "Facts Discipline"
 
-Our core technical differentiator is the implementation of a strict **Facts Discipline**. In standard clinical or scheduling agents, models are given free rein to estimate windows, naps, or developmental advice. This leads to dangerous or incorrect information. In Mom Day-Organiser, the model is strictly forbidden from originating developmental facts.
+Our core technical differentiator is the implementation of a strict **Facts Discipline**. In standard clinical or scheduling agents, models are given free rein to estimate windows, naps, or developmental advice. This leads to dangerous or incorrect information. In Momosini, the model is strictly forbidden from originating developmental facts.
 
 ### 1. Evidence-Tiered Knowledge Databases
 We curated our developmental knowledge files (`naps.json` and `milestones.json`) from authoritative medical literature. Every record is explicitly tagged with a source and an evidence confidence tier:
@@ -129,14 +134,22 @@ To ensure the Facts Discipline is maintained across code modifications, we built
 
 ---
 
-## 5. Reflections and Future Work
+## 5. The Build Journey
 
-### Engineering Takeaways
-*   **The Session State Challenge on Serverless:** Keeping conversation state in-memory on FastAPI is simple for prototypes, but serverless environments like Google Cloud Run require careful configuration (`--max-instances=1` and session affinity) to avoid split-brain conversations. A production-grade deployment would back session storage with a fast cache like Memorystore (Redis).
-*   **Model Agnosticism:** Integrating LiteLLM as an optional wrapper in our ADK configuration allowed us to swap the model back-end to alternative providers with a single environment variable change. This saved development time when local testing reached free-tier rate limits.
+The project didn't arrive at this shape on day one — several design decisions changed after we tested the earlier version against real use:
+
+*   **From three agents to one.** Our first instinct was to frame the nap lookup, the milestone lookup, and the day composer as three cooperating agents. On review, that was overcount: relabeling sequential function calls as "agents" inflates the concept count without adding real agency. We collapsed to the honest architecture — the lookups are deterministic *tools*, and there is exactly **one** agent, the composer, genuinely deciding which tools to call and when. Fewer claimed agents, but a more credible one.
+*   **The clarifying-question cap went up, not down.** The original design capped onboarding at a single clarifying question, to spare a sleep-deprived parent friction. Once we rebuilt onboarding as a real interview — birthday, free text about the day, then targeted follow-ups — one question couldn't fill the gaps a free-text answer leaves. We raised the ceiling to 5–6 questions, one at a time, always skippable, with defaults documented when the parent opts out — a ceiling, not a target: the agent stops as soon as it has enough.
+*   **Milestone bands couldn't reuse the nap bands.** We assumed both domains would share identical age-band edges for simplicity. Curating milestone data against Scharf et al. (2016) proved otherwise: early development moves fast enough that a 9-month-old and a 12-month-old need different milestone check-ins, even within the same nap band. We kept a shared age-lookup *mechanism* but let each domain define its own band edges.
+*   **Rate limits pushed us toward model-agnosticism.** Local testing against Gemini's free tier hit rate limits mid-build. Rather than block on that, we added LiteLLM as an optional wrapper so the model backend swaps with a single environment variable — we verified the agent runs correctly against both Gemini and DeepSeek. What started as a workaround became a genuine deployability strength.
+*   **Serverless session state was the deployment surprise.** Keeping onboarding conversations in-memory is simple for a prototype, but Cloud Run's serverless scaling can split a live conversation across instances or drop it entirely. We caught this before the demo, not after, and mitigated it with `--max-instances=1` (and `--min-instances=1` to keep one instance warm) — an honestly-logged limitation rather than a hidden one, with a real fix (a shared session store like Memorystore) named as future work.
+
+---
+
+## 6. Reflections and Future Work
 
 ### Future Work
-In future iterations of Mom Day-Organiser, we plan to:
+In future iterations of Momosini, we plan to:
 1.  **Extend Curated Domains:** Include feeding schedules (solids transition), safety checks, and motor developmental exercises.
 2.  **Pediatrician Escalation Pathways:** Integrate developmental "Red Flags" from the AAP guidelines, formatting them as deterministic alerts that recommend pediatrician consultation without the model attempting a diagnosis.
 3.  **Cross-Device Synchronization:** Implement encrypted, local-first syncing (using WebRTC or private user database containers) to share the day's routine seamlessly between parents and caregivers.
@@ -144,4 +157,4 @@ In future iterations of Mom Day-Organiser, we plan to:
 ---
 
 ## Conclusion
-Mom Day-Organiser proves that AI agents can act as empathetic, reliable concierge assistants when properly bounded. By placing clinical facts in deterministic MCP tools, keeping sensitive data local, and focusing the agent's creativity strictly on safe play activities and empathetic conversation, we have built a concierge system that respects parental boundaries, adapts dynamically to a child's growth, and provides genuine, everyday value.
+Momosini proves that AI agents can act as empathetic, reliable concierge assistants when properly bounded. By placing clinical facts in deterministic MCP tools and focusing the agent's creativity strictly on safe play activities and empathetic conversation, we have built a concierge system that respects parental boundaries, adapts dynamically to a child's growth, and provides genuine, everyday value.

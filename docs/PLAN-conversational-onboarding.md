@@ -1,8 +1,8 @@
 # Plan — conversational onboarding (interview, not a form)
 
-Status: **ALL 5 STEPS COMPLETE** (committed in `d1a402d`, 2026-06-25). Implemented with Sujatha's
-approval, including the protected-file changes (`agent/instructions.py`, the `compose-baby-day`
-Skill) for the persona + 5–6-question interview. What shipped:
+Status: **ALL 5 STEPS COMPLETE** (committed in `d1a402d`, 2026-06-25). Includes the
+protected-file changes (`agent/instructions.py`, the `compose-baby-day` Skill) for the persona
++ 5–6-question interview. What shipped:
 
 1. **Multi-turn endpoint** — `start_conversation` / `send_message` in `agent/runner.py`,
    `POST /converse` in `web/app.py`. ✓

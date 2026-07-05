@@ -1,0 +1,54 @@
+<svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, Arial, sans-serif">
+<title>Momosini architecture</title>
+<desc>Left-to-right flow: parent browser to FastAPI web seam to the Google ADK composer agent, which calls a local MCP server that reads curated JSON. Only the agent, MCP server and curated data form the grounded-facts path. Only the baby's age in months leaves the device; the day plan returns to the parent.</desc>
+<defs>
+<marker id="ah" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L7,3 L0,6 Z" fill="#73716b"/>
+</marker>
+<marker id="aha" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+<path d="M0,0 L7,3 L0,6 Z" fill="#3355cc"/>
+</marker>
+</defs>
+
+<rect x="0" y="0" width="700" height="360" fill="#ffffff"/>
+
+<text x="14" y="30" font-size="18" font-weight="500" fill="#141413">Momosini — agent architecture</text>
+<text x="14" y="52" font-size="12" fill="#73716b">One agent decides; facts come from deterministic tools, never the model.</text>
+
+<rect x="286" y="96" width="380" height="170" rx="12" fill="#eef2fc" stroke="#b7c4ec" stroke-dasharray="4 4"/>
+<text x="476" y="116" font-size="11" text-anchor="middle" fill="#3355cc">grounded-facts path · no hallucination</text>
+
+<rect x="14" y="150" width="108" height="70" rx="8" fill="#ffffff" stroke="#d9d6cf"/>
+<text x="68" y="182" font-size="13" text-anchor="middle" fill="#141413">Parent</text>
+<text x="68" y="200" font-size="11" text-anchor="middle" fill="#73716b">browser UI</text>
+
+<rect x="150" y="150" width="108" height="70" rx="8" fill="#ffffff" stroke="#d9d6cf"/>
+<text x="204" y="182" font-size="13" text-anchor="middle" fill="#141413">Web seam</text>
+<text x="204" y="200" font-size="11" text-anchor="middle" fill="#73716b">FastAPI /converse</text>
+
+<rect x="286" y="150" width="108" height="70" rx="8" fill="#ffffff" stroke="#b7c4ec"/>
+<text x="340" y="182" font-size="13" text-anchor="middle" fill="#141413">Composer agent</text>
+<text x="340" y="200" font-size="11" text-anchor="middle" fill="#73716b">Google ADK</text>
+
+<rect x="422" y="150" width="108" height="70" rx="8" fill="#ffffff" stroke="#b7c4ec"/>
+<text x="476" y="182" font-size="13" text-anchor="middle" fill="#141413">MCP server</text>
+<text x="476" y="200" font-size="11" text-anchor="middle" fill="#73716b">local stdio</text>
+
+<rect x="558" y="150" width="108" height="70" rx="8" fill="#ffffff" stroke="#b7c4ec"/>
+<text x="612" y="178" font-size="13" text-anchor="middle" fill="#141413">Curated JSON</text>
+<text x="612" y="196" font-size="11" text-anchor="middle" fill="#73716b">naps · milestones</text>
+<text x="612" y="211" font-size="10" text-anchor="middle" fill="#3355cc">tiers A · B · C</text>
+
+<line x1="122" y1="185" x2="148" y2="185" stroke="#73716b" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="258" y1="185" x2="284" y2="185" stroke="#73716b" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="394" y1="185" x2="420" y2="185" stroke="#3355cc" stroke-width="1.5" marker-end="url(#aha)"/>
+<line x1="530" y1="185" x2="556" y2="185" stroke="#3355cc" stroke-width="1.5" marker-end="url(#aha)"/>
+
+<text x="408" y="142" font-size="10" text-anchor="middle" fill="#3355cc">age in months only</text>
+
+<path d="M340 220 L340 300 L5 300 L5 185 L12 185" fill="none" stroke="#73716b" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="210" y="316" font-size="11" text-anchor="middle" fill="#73716b">clarifying question, then composed day blocks</text>
+
+<text x="68" y="240" font-size="10" text-anchor="middle" fill="#9b998f">schedule + birthday</text>
+<text x="68" y="252" font-size="10" text-anchor="middle" fill="#9b998f">stay on-device</text>
+</svg>

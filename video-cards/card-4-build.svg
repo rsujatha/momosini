@@ -1,0 +1,6 @@
+<svg viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans, Arial, sans-serif">
+<rect x="0" y="0" width="1920" height="1080" fill="#ffffff"/>
+<text x="960" y="490" font-size="40" letter-spacing="8" text-anchor="middle" fill="#3355cc">04</text>
+<text x="960" y="590" font-size="118" font-weight="bold" text-anchor="middle" fill="#141413">The Build</text>
+<rect x="915" y="632" width="90" height="5" rx="2.5" fill="#3355cc"/>
+</svg>

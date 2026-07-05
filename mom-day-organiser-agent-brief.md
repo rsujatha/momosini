@@ -1,4 +1,4 @@
-# Mom Day-Organiser Agent — Project Brief
+# Momosini Agent — Project Brief
 
 ## How to use this file
 Drop this into Claude Cowork (or Claude Code) as the project brief. It captures the goals, architecture, scope, and constraints decided so far. Build to this spec, and hold the scope discipline in section 11 given the deadline.
@@ -257,7 +257,7 @@ Every band is tagged **[B]**, with the reasoning stated openly rather than round
 - **Milestone ages carry inherent wide variation** — wider than sleep totals — so the
   typical-not-prescriptive framing matters even more here.
 
-Sujatha owns the final tier call (the provenance gate); the file marks [B] pending that review.
+The final tier call is the provenance gate; the file marks [B] pending that review.
 
 ### Age banding — finer than naps, deliberately
 
@@ -272,8 +272,7 @@ and `get_milestone_checkin(age_months)` does the same age→band lookup `get_nap
 edges, so the two domains don't literally share one index — they share the same *lookup
 mechanism* (age→band), not the same band boundaries. This is a deliberate deviation from
 ARCHITECTURE.md's "shared index across domains" line; if kept, that line should be softened to
-"shared age-keyed lookup" and the choice logged in `docs/DECISIONS.md`. (Flagged for Sujatha,
-not yet changed.)
+"shared age-keyed lookup" and the choice logged in `docs/DECISIONS.md`. (Flagged, not yet changed.)
 
 ### Red flags — deliberately out of scope (for now)
 

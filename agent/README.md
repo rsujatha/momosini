@@ -6,8 +6,8 @@ developmental number. Play activities are the one thing it *generates* (from the
 tool returns), under the safety fence in `instructions.py`.
 
 ## Files
-- `instructions.py` — the system prompt + facts discipline. **OWNED BY SUJATHA**; reviewed, not
-  edited casually. `agent.py` imports `SYSTEM_INSTRUCTION` from it.
+- `instructions.py` — the system prompt + facts discipline — changed with care, not casually.
+  `agent.py` imports `SYSTEM_INSTRUCTION` from it.
 - `agent.py` — the wiring: `build_agent()` (live `LlmAgent` + `McpToolset`) and
   `list_mcp_tools()` (proves the agent↔MCP seam with no model call).
 - `skills/compose-baby-day/SKILL.md` — the compose/restructure method the agent loads on demand.
@@ -28,10 +28,10 @@ cp .env.example .env          # then put your Google AI Studio key in GOOGLE_API
 # (.env is git-ignored — never commit the key)
 ```
 Then drive `build_agent()` with the ADK runner. Optional: `ADK_MODEL` overrides the default
-(`gemini-2.5-flash`) if you want a different free-tier model. (Note: `gemini-2.0-flash` was
+(`gemini-3.5-flash`) if you want a different free-tier model. (Note: `gemini-2.0-flash` was
 retired 2026-03-03 — a `429 ... limit: 0` usually means the model name is dead, not your quota.)
 
 ## Status
-- **Arc 2 (this) — done:** real `LlmAgent` + real `McpToolset`, seam verified.
-- **Arc 3 — next:** the agent loop + clarifying-question flow + composing a day end-to-end
-  (co-owned; `instructions.py` stays Sujatha's). See `docs/WORKPLAN.md`.
+Complete: a real `LlmAgent` + `McpToolset`, the decide → call → observe loop, the
+clarifying-question flow, and end-to-end day composition all work. See `docs/WORKPLAN.md`
+for the build history.
